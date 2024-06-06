@@ -35,6 +35,20 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '2rem',
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translate(0, -150%)' },
+          '100%': { transform: 'translate(0, 0)' },
+        },
+        slideOut: {
+          '0%': { transform: 'translate(0, 0)' },
+          '100%': { transform: 'translate(0, -180%)'},
+        }
+      },
+      animation: {
+        slideIn: 'slideIn .55s ease-in-out',
+        slideOut: 'slideOut .55s ease-in-out',
       }
     },
     plugins: [],
