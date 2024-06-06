@@ -1,6 +1,5 @@
 import "./globals.css";
 import {inter} from '@/app/ui/fonts';
-import Header from "@/app/Header";
 
 
 export const metadata = {
@@ -12,14 +11,7 @@ export default function RootLayout({children}) {
     return (
         <html lang="ru">
         <body className={`${inter.className}`}>
-        <Header/>
         {children}
-        <footer className="flex justify-around bg-yellow p-5 rounded-t-xl absolute bottom-0 left-0 right-0">
-            <div>Документация</div>
-            <div>GitHub</div>
-            <div>Аналитика</div>
-            <div>Контакты</div>
-        </footer>
         </body>
         </html>
     );
