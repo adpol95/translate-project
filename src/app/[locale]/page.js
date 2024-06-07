@@ -6,7 +6,7 @@ export default function LanguagePic({params}) {
     }
 
     return (
-        <main>
+        <main className="pt-[50vh] flex-[1 1 auto]">
             <h1>{data[params.locale]}</h1>
         </main>
     )

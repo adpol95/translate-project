@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 export default function Footer(props) {
-    console.log(props.ln);
     const data = [
         {
             lang: 'ru',
@@ -17,7 +16,7 @@ export default function Footer(props) {
         },
     ];
     return (
-        <footer className="bg-yellow p-6 rounded-t-xl w-full shadow-md absolute bottom-0">
+        <footer className="bg-yellow p-6 rounded-t-xl w-full shadow-md">
             <nav className="w-full">
                 <ul className="flex justify-around">
                     {data.find(el => el.lang === props.ln).list.map(el => <li key={Math.random() * 10 + 1}>
