@@ -6,7 +6,7 @@ export default function LanguagePic({params}) {
     }
 
     return (
-        <main className="flex flex-col justify-center items-center h-[1400px]">
+        <main>
             <h1>{data[params.locale]}</h1>
         </main>
     )

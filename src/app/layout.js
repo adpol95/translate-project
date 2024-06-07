@@ -1,5 +1,6 @@
 import "./globals.css";
 import {inter} from '@/app/ui/fonts';
+import "./reset-default-browser.css";
 
 
 export const metadata = {
@@ -9,8 +10,8 @@ export const metadata = {
 
 export default function RootLayout({children}) {
     return (
-        <html>
-        <body className={`${inter.className} relative`}>
+        <html lang="en">
+        <body className={`${inter.className} flex flex-col items-center justify-center h-[100vh]`}>
         {children}
         </body>
         </html>
