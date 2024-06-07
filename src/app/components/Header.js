@@ -29,6 +29,7 @@ export default function Header(props) {
             }
         }
     ]
+
     return (
         <header className="bg-orange text-white p-6 fixed top-0 right-0 left-0 rounded-b-xl shadow-md">
             <nav className="w-full">

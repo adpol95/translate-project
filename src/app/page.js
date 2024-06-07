@@ -7,5 +7,4 @@ export default function Home() {
     const lang = cookieStore.get('lang');
     if (lang) redirect(`/${lang.value}`);
     else redirect(`/ru`);
-    return null
 }
