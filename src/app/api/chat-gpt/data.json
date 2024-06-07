@@ -1,0 +1,104 @@
+{
+  "news":[
+    {
+      "date":"2022-09-01",
+      "ru":"Старт нового учебного года в российских школах",
+      "en":"Start of the new school year in Russian schools"
+    },
+    {
+      "date":"2022-09-02",
+      "ru":"Пожар в торговом центре Москвы",
+      "en":"Fire in a shopping center in Moscow"
+    },
+    {
+      "date":"2022-09-03",
+      "ru":"Протесты в Беларуси после выборов",
+      "en":"Protests in Belarus after elections"
+    },
+    {
+      "date":"2022-09-04",
+      "ru":"Новый рекорд по числу заболевших COVID-19 в России",
+      "en":"New record for the number of COVID-19 cases in Russia"
+    },
+    {
+      "date":"2022-09-05",
+      "ru":"Успешный запуск космического аппарата на орбиту",
+      "en":"Successful launch of a spacecraft into orbit"
+    },
+    {
+      "date":"2022-09-06",
+      "ru":"Подписание мирного соглашения в зоне конфликта",
+      "en":"Signing of a peace agreement in a conflict zone"
+    },
+    {
+      "date":"2022-09-07",
+      "ru":"Рекордный урожай зерна в России",
+      "en":"Record grain harvest in Russia"
+    },
+    {
+      "date":"2022-09-08",
+      "ru":"Проведение крупного культурного мероприятия в Москве",
+      "en":"Large cultural event held in Moscow"
+    },
+    {
+      "date":"2022-09-09",
+      "ru":"Открытие нового музея в Санкт-Петербурге",
+      "en":"Opening of a new museum in St. Petersburg"
+    },
+    {
+      "date":"2022-09-10",
+      "ru":"Затопление дорог из-за сильного дождя",
+      "en":"Roads flooded due to heavy rain"
+    },
+    {
+      "date":"2022-09-11",
+      "ru":"Подписание контракта на строительство новой инфраструктуры",
+      "en":"Signing of a contract for the construction of new infrastructure"
+    },
+    {
+      "date":"2022-09-12",
+      "ru":"Обновление законодательства о безопасности на дорогах",
+      "en":"Updating legislation on road safety"
+    },
+    {
+      "date":"2022-09-13",
+      "ru":"Поиск пропавшего туриста в горах",
+      "en":"Search for missing tourist in the mountains"
+    },
+    {
+      "date":"2022-09-14",
+      "ru":"Проверка финансовой отчетности компании",
+      "en":"Verification of company's financial statements"
+    },
+    {
+      "date":"2022-09-15",
+      "ru":"Запрет на вылов редкого вида рыбы",
+      "en":"Ban on fishing of rare fish species"
+    },
+    {
+      "date":"2022-09-16",
+      "ru":"Старт нового проекта по охране окружающей среды",
+      "en":"Launch of a new project on environmental protection"
+    },
+    {
+      "date":"2022-09-17",
+      "ru":"Испытания нового противоракетного комплекса",
+      "en":"Testing of a new anti-missile system"
+    },
+    {
+      "date":"2022-09-18",
+      "ru":"Открытие выставки современного искусства в Москве",
+      "en":"Opening of a contemporary art exhibition in Moscow"
+    },
+    {
+      "date":"2022-09-19",
+      "ru":"Увеличение пенсионного возраста в России",
+      "en":"Increase in retirement age in Russia"
+    },
+    {
+      "date":"2022-09-20",
+      "ru":"Новый закон о защите прав потребителей",
+      "en":"New law on consumer rights protection"
+    }
+  ]
+}
