@@ -11,10 +11,6 @@ export default function ChangingLanguage(props) {
             lan: "en",
             text: "English"
         },
-        {
-            lan: "fr",
-            text: "French"
-        },
     ]
 
     return (

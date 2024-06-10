@@ -10,10 +10,6 @@ export default function Footer(props) {
             lang: 'en',
             list: ["Docs", "GitHub", "Analytics", "Contacts"]
         },
-        {
-            lang: 'fr',
-            list: ["Documentation", "GitHub", "Analytique", "Contacts"]
-        },
     ];
     return (
         <footer className="bg-yellow p-6 rounded-t-xl w-full shadow-md">

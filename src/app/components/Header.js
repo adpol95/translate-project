@@ -9,7 +9,6 @@ export default function Header(props) {
             text: {
                 ru: "Новости",
                 en: "News",
-                fr: "Nouvelles"
             }
         },
         {
@@ -17,7 +16,6 @@ export default function Header(props) {
             text: {
                 ru: "Погода",
                 en: "Weather",
-                fr: "Météo"
             }
         },
         {
@@ -25,7 +23,6 @@ export default function Header(props) {
             text: {
                 ru: "Пробки",
                 en: "Traffic jams",
-                fr: "Embouteillages"
             }
         }
     ]
@@ -36,7 +33,7 @@ export default function Header(props) {
                 <ul className="flex justify-around">
                     {data.map(el => <li key={el.id}>
                         <Link href="">
-                            {el.text[props.ln]}
+                            {el.text[props.ln.slice()]}
                         </Link>
                     </li>)}
                     <PopUpMenu ln={props.ln}/>

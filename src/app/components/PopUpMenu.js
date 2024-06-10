@@ -19,7 +19,7 @@ export default function PopUpMenu(props) {
                     setTimeout(() => setLangStateArea(!langStateArea), 500);
                 }
             }}>
-                {props.ln === "ru" ? "Язык" : props.ln === "en" ? "Language" : "Langue"}
+                {props.ln === "ru" ? "Язык" : "Language"}
             </button>
             <ChangingLanguage lsa={langStateArea} anim={anima}/>
         </div>

@@ -1,6 +1,6 @@
 export const i18n = {
     defaultLocale: "ru",
-    locales: ["ru","en", "fr"],
+    locales: ["ru","en"],
     localeDetection: true
 };
 

@@ -1,104 +1,254 @@
-{
-  "news":[
-    {
-      "date":"2022-09-01",
-      "ru":"Старт нового учебного года в российских школах",
-      "en":"Start of the new school year in Russian schools"
+[
+  {
+    "en": {
+      "title": "Floods wreak havoc in several states",
+      "description": "Severe flooding has affected several states in the country, displacing thousands of people and causing widespread damage.",
+      "date": "2021-06-05"
     },
-    {
-      "date":"2022-09-02",
-      "ru":"Пожар в торговом центре Москвы",
-      "en":"Fire in a shopping center in Moscow"
-    },
-    {
-      "date":"2022-09-03",
-      "ru":"Протесты в Беларуси после выборов",
-      "en":"Protests in Belarus after elections"
-    },
-    {
-      "date":"2022-09-04",
-      "ru":"Новый рекорд по числу заболевших COVID-19 в России",
-      "en":"New record for the number of COVID-19 cases in Russia"
-    },
-    {
-      "date":"2022-09-05",
-      "ru":"Успешный запуск космического аппарата на орбиту",
-      "en":"Successful launch of a spacecraft into orbit"
-    },
-    {
-      "date":"2022-09-06",
-      "ru":"Подписание мирного соглашения в зоне конфликта",
-      "en":"Signing of a peace agreement in a conflict zone"
-    },
-    {
-      "date":"2022-09-07",
-      "ru":"Рекордный урожай зерна в России",
-      "en":"Record grain harvest in Russia"
-    },
-    {
-      "date":"2022-09-08",
-      "ru":"Проведение крупного культурного мероприятия в Москве",
-      "en":"Large cultural event held in Moscow"
-    },
-    {
-      "date":"2022-09-09",
-      "ru":"Открытие нового музея в Санкт-Петербурге",
-      "en":"Opening of a new museum in St. Petersburg"
-    },
-    {
-      "date":"2022-09-10",
-      "ru":"Затопление дорог из-за сильного дождя",
-      "en":"Roads flooded due to heavy rain"
-    },
-    {
-      "date":"2022-09-11",
-      "ru":"Подписание контракта на строительство новой инфраструктуры",
-      "en":"Signing of a contract for the construction of new infrastructure"
-    },
-    {
-      "date":"2022-09-12",
-      "ru":"Обновление законодательства о безопасности на дорогах",
-      "en":"Updating legislation on road safety"
-    },
-    {
-      "date":"2022-09-13",
-      "ru":"Поиск пропавшего туриста в горах",
-      "en":"Search for missing tourist in the mountains"
-    },
-    {
-      "date":"2022-09-14",
-      "ru":"Проверка финансовой отчетности компании",
-      "en":"Verification of company's financial statements"
-    },
-    {
-      "date":"2022-09-15",
-      "ru":"Запрет на вылов редкого вида рыбы",
-      "en":"Ban on fishing of rare fish species"
-    },
-    {
-      "date":"2022-09-16",
-      "ru":"Старт нового проекта по охране окружающей среды",
-      "en":"Launch of a new project on environmental protection"
-    },
-    {
-      "date":"2022-09-17",
-      "ru":"Испытания нового противоракетного комплекса",
-      "en":"Testing of a new anti-missile system"
-    },
-    {
-      "date":"2022-09-18",
-      "ru":"Открытие выставки современного искусства в Москве",
-      "en":"Opening of a contemporary art exhibition in Moscow"
-    },
-    {
-      "date":"2022-09-19",
-      "ru":"Увеличение пенсионного возраста в России",
-      "en":"Increase in retirement age in Russia"
-    },
-    {
-      "date":"2022-09-20",
-      "ru":"Новый закон о защите прав потребителей",
-      "en":"New law on consumer rights protection"
+    "ru": {
+      "title": "Наводнения принесли хаос в нескольких штатах",
+      "description": "Тяжелые наводнения повлияли на несколько штатов в стране, вынуждая тысячи людей покинуть свои дома и причиняя обширные разрушения.",
+      "date": "2021-06-05"
     }
-  ]
-}
+  },
+  {
+    "en": {
+      "title": "New study reveals shocking statistics",
+      "description": "A recent study has unveiled shocking statistics about the increasing pollution levels in urban areas.",
+      "date": "2021-06-10"
+    },
+    "ru": {
+      "title": "Новое исследование раскрывает шокирующую статистику",
+      "description": "Недавнее исследование раскрыло шокирующую статистику о растущем загрязнении в городских районах.",
+      "date": "2021-06-10"
+    }
+  },
+  {
+    "en": {
+      "title": "Celebrity couple announces separation",
+      "description": "Popular celebrity couple has publicly announced their separation, shocking fans around the world.",
+      "date": "2021-06-15"
+    },
+    "ru": {
+      "title": "Знаменитая пара объявляет о разрыве отношений",
+      "description": "Популярная знаменитая пара публично объявила о своем разрыве, шокируя поклонников по всему миру.",
+      "date": "2021-06-15"
+    }
+  },
+  {
+    "en": {
+      "title": "Government announces new policy changes",
+      "description": "The government has revealed a series of new policy changes aimed at improving the economy and social welfare.",
+      "date": "2021-06-20"
+    },
+    "ru": {
+      "title": "Правительство объявляет о новых изменениях в политике",
+      "description": "Правительство раскрыло ряд новых изменений в политике с целью улучшения экономики и социального благополучия.",
+      "date": "2021-06-20"
+    }
+  },
+  {
+    "en": {
+      "title": "Tech company launches new product line",
+      "description": "Leading tech company has introduced a new product line featuring cutting-edge technology and innovative design.",
+      "date": "2021-06-25"
+    },
+    "ru": {
+      "title": "Технологическая компания запускает новую линейку продуктов",
+      "description": "Ведущая технологическая компания представила новую линейку продуктов, предлагающую передовые технологии и инновационный дизайн.",
+      "date": "2021-06-25"
+    }
+  },
+  {
+    "en": {
+      "title": "Researchers make breakthrough in cancer treatment",
+      "description": "Scientists have made a significant breakthrough in cancer treatment, offering new hope to patients worldwide.",
+      "date": "2021-07-01"
+    },
+    "ru": {
+      "title": "Исследователи добиваются прорыва в лечении рака",
+      "description": "Ученые добились значительного прорыва в лечении рака, предлагая новую надежду пациентам по всему миру.",
+      "date": "2021-07-01"
+    }
+  },
+  {
+    "en": {
+      "title": "Local community rallies together to support fire victims",
+      "description": "The local community has come together to support families affected by a recent fire, providing aid and assistance.",
+      "date": "2021-07-05"
+    },
+    "ru": {
+      "title": "Местное сообщество сплотилось, чтобы поддержать жертв пожара",
+      "description": "Местное сообщество объединилось, чтобы поддержать семьи, пострадавшие от недавнего пожара, предоставляя помощь и поддержку.",
+      "date": "2021-07-05"
+    }
+  },
+  {
+    "en": {
+      "title": "World leaders gather for annual summit",
+      "description": "World leaders have gathered for the annual summit to discuss global issues and cooperation.",
+      "date": "2021-07-10"
+    },
+    "ru": {
+      "title": "Мировые лидеры собираются на ежегодный саммит",
+      "description": "Мировые лидеры собрались на ежегодный саммит для обсуждения глобальных вопросов и сотрудничества.",
+      "date": "2021-07-10"
+    }
+  },
+  {
+    "en": {
+      "title": "New art exhibition showcases local talent",
+      "description": "A new art exhibition has opened, showcasing the work of local artists and highlighting their talent.",
+      "date": "2021-07-15"
+    },
+    "ru": {
+      "title": "Новая художественная выставка демонстрирует местный талант",
+      "description": "Открылась новая художественная выставка, демонстрирующая работы местных художников и выделяющая их талант.",
+      "date": "2021-07-15"
+    }
+  },
+  {
+    "en": {
+      "title": "Economic indicators point to recovery",
+      "description": "Recent economic indicators suggest a gradual recovery from the impact of the global pandemic.",
+      "date": "2021-07-20"
+    },
+    "ru": {
+      "title": "Экономические показатели указывают на восстановление",
+      "description": "Недавние экономические показатели свидетельствуют о постепенном восстановлении после воздействия глобальной пандемии.",
+      "date": "2021-07-20"
+    }
+  },
+  {
+    "en": {
+      "title": "New study links sleep patterns to mental health",
+      "description": "A recent study has found a strong correlation between sleep patterns and mental health, highlighting the importance of quality rest.",
+      "date": "2021-07-25"
+    },
+    "ru": {
+      "title": "Новое исследование связывает образец сна с психическим здоровьем",
+      "description": "Недавнее исследование выявило тесную связь между образцом сна и психическим здоровьем, подчеркивая важность качественного отдыха.",
+      "date": "2021-07-25"
+    }
+  },
+  {
+    "en": {
+      "title": "Tech company unveils futuristic new device",
+      "description": "A tech company has unveiled a futuristic new device that promises to revolutionize the way we interact with technology.",
+      "date": "2021-08-01"
+    },
+    "ru": {
+      "title": "Технологическая компания представляет будущенповый новый устройство",
+      "description": "Технологическая компания представила футуристическое новое устройство, которое обещает изменить способ взаимодействия с технологией.",
+      "date": "2021-08-01"
+    }
+  },
+  {
+    "en": {
+      "title": "Political tensions escalate in the region",
+      "description": "Political tensions have escalated in the region, leading to fears of potential conflict and instability.",
+      "date": "2021-08-05"
+    },
+    "ru": {
+      "title": "Политические напряжения нарастают в регионе",
+      "description": "Политические напряжения нарастают в регионе, вызывая опасения возможного конфликта и нестабильности.",
+      "date": "2021-08-05"
+    }
+  },
+  {
+    "en": {
+      "title": "New study reveals impact of climate change on biodiversity",
+      "description": "A new study has highlighted the devastating impact of climate change on global biodiversity, urging action to address the crisis.",
+      "date": "2021-08-10"
+    },
+    "ru": {
+      "title": "Новое исследование раскрывает влияние изменения климата на биоразнообразие",
+      "description": "Новое исследование выделило разрушительное влияние изменения климата на глобальное биоразнообразие, призывая к действиям по преодолению кризиса.",
+      "date": "2021-08-10"
+    }
+  },
+  {
+    "en": {
+      "title": "Celebrity chef launches new cooking show",
+      "description": "Renowned celebrity chef has launched a new cooking show, sharing recipes and culinary tips with audiences worldwide.",
+      "date": "2021-08-15"
+    },
+    "ru": {
+      "title": "Знаменитый шеф-повар запускает новое кулинарное шоу",
+      "description": "Известный знаменитый шеф-повар запустил новое кулинарное шоу, делясь рецептами и кулинарными советами с аудиторией по всему миру.",
+      "date": "2021-08-15"
+    }
+  },
+  {
+    "en": {
+      "title": "Space agency announces upcoming mission to Mars",
+      "description": "A leading space agency has announced an upcoming mission to Mars, with plans to explore new areas of the red planet.",
+      "date": "2021-08-20"
+    },
+    "ru": {
+      "title": "Космическое агентство объявляет о предстоящей миссии на Марс",
+      "description": "Ведущее космическое агентство объявило о предстоящей миссии на Марс, с планами на исследование новых областей красной планеты.",
+      "date": "2021-08-20"
+    }
+  },
+  {
+    "en": {
+      "title": "New exhibition showcases emerging artists",
+      "description": "A new exhibition is showcasing the work of emerging artists, providing a platform for new talent to be discovered.",
+      "date": "2021-08-25"
+    },
+    "ru": {
+      "title": "Новая выставка демонстрирует работу молодых художников",
+      "description": "Новая выставка демонстрирует работы молодых художников, предоставляя платформу для открытия новых талантов.",
+      "date": "2021-08-25"
+    }
+  },
+  {
+    "en": {
+      "title": "Major company announces plans for expansion",
+      "description": "A major company has announced plans for expansion into new markets, signaling growth and potential opportunities.",
+      "date": "2021-09-01"
+    },
+    "ru": {
+      "title": "Крупная компания объявляет планы по расширению",
+      "description": "Крупная компания объявила планы по расширению на новые рынки, сигнализируя о росте и потенциальных возможностях.",
+      "date": "2021-09-01"
+    }
+  },
+  {
+    "en": {
+      "title": "Historic landmark undergoes restoration",
+      "description": "A historic landmark is undergoing restoration to preserve its cultural heritage and architectural significance.",
+      "date": "2021-09-05"
+    },
+    "ru": {
+      "title": "Исторический памятник проходит реставрацию",
+      "description": "Исторический памятник проходит реставрацию для сохранения своего культурного наследия и архитектурной значимости.",
+      "date": "2021-09-05"
+    }
+  },
+  {
+    "en": {
+      "title": "New technology promises to revolutionize transportation",
+      "description": "A breakthrough in transportation technology promises to revolutionize the way we travel, offering faster and more efficient options.",
+      "date": "2021-09-10"
+    },
+    "ru": {
+      "title": "Новая технология обещает революцию в транспортировке",
+      "description": "Прорыв в технологии транспортировки обещает революционизировать способ путешествия, предлагая более быстрые и эффективные варианты.",
+      "date": "2021-09-10"
+    }
+  },
+  {
+    "en": {
+      "title": "Local school wins prestigious award",
+      "description": "A local school has been recognized with a prestigious award for its outstanding academic performance and community engagement.",
+      "date": "2021-09-15"
+    },
+    "ru": {
+      "title": "Местная школа выигрывает престижную награду",
+      "description": "Местная школа была отмечена престижной наградой за выдающуюся успеваемость и взаимодействие с обществом.",
+      "date": "2021-09-15"
+    }
+  }
+]

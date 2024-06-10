@@ -18,7 +18,6 @@ function getLocale(request){
         locales,
     );
     console.log(negotiatorHeaders['accept-language']);
-
     return matchLocale(languages, locales, i18n.defaultLocale);
 }
 

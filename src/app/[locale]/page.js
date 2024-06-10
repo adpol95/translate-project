@@ -1,36 +1,44 @@
-"use client";
-import {useEffect, useState} from "react";
-
-export default function LanguagePic({params}) {
-    const data = {
-        ru: "С 6 по 9 июня на выводном круге Центра национальных конных традиций на ВДНХ пройдет первенство России по конкуру среди юных всадников, выступающих на лошадях до 150 сантиметров в холке.Официальный портал Мэраи Правительства Москвы",
-        en: "From June 6 to 9, the Russian show jumping championship among young riders competing on horses up to 150 centimeters at the withers will be held at the breeding circle of the Center for National Equestrian Traditions at VDNKh. Official portal Mariah of the Moscow Government",
-        fr: "Du 6 au 9 juin, le championnat russe de saut d'obstacles parmi les jeunes cavaliers concourant sur des chevaux jusqu'à 150 centimètres au garrot aura lieu au cercle d'élevage du Centre des traditions équestres nationales de VDNKh. Portail officiel Mariah du gouvernement de Moscou."
-    }
-    const [datas, setDatas] = useState([]);
-
-    useEffect(() => {
-        fetch("/api/chat-gpt", {
+export default async function LanguagePic({params}) {
+    // const [datas, setDatas] = useState([]);
+    //
+    // useEffect(() => {
+    //     fetch("/api/chat-gpt", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             someData: true
+    //         })
+    //     })
+    //         .then((res) => res.json())
+    //         .then(response => {
+    //             setDatas(response)
+    //         })
+    // }, []);
+    // console.log(datas)
+    const res = await fetch("http://localhost:3000/api/chat-gpt",
+        {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Page": "0"
             },
             body: JSON.stringify({
                 someData: true
-            })
-        })
-            .then((res) => res.json())
-            .then(response => {
-                setDatas(response.data.news)
-            })
-    }, []);
-
+            }),
+            cache: "no-cache",
+        });
+    const news = await res.json();
     return (
-        <main className="pt-[20vh] flex-[1 1 auto]">
-            <section>
+        <main className="pt-[20vh] pb-[8vh] flex-[1 1 auto]">
+            <section className="flex flex-col items-center justify-between">
+                <h1 className="text-[7vh] font-bold pb-[10vh]">{params.locale === "ru" ? "Новости" : "News"}</h1>
                 <ul>
-                    {datas.map((item, index) => <li key={index}>
-                        {item[params.locale]}
+                    {news.map((item, index) => <li key={index} className="m-3">
+                        <h2 className="font-bold">{item[params.locale].title}</h2>
+                        <p>{item[params.locale].description}</p>
+                        <div> {item[params.locale].date}</div>
                     </li>)}
                 </ul>
             </section>
