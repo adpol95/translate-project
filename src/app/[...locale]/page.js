@@ -1,3 +1,5 @@
+import PaginationNews from "@/app/components/PaginationNews";
+
 export default async function LanguagePic({params}) {
     // const [datas, setDatas] = useState([]);
     //
@@ -22,25 +24,28 @@ export default async function LanguagePic({params}) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Page": "0"
             },
             body: JSON.stringify({
-                someData: true
+                someData: true,
             }),
-            cache: "no-cache",
+            cache: "no-store",
         });
     const news = await res.json();
+    const pagiNews = [news.slice(0, 11), news.slice(11)];
+    const getPage = params.locale[1];
+    const local = params.locale[0];
     return (
         <main className="pt-[20vh] pb-[8vh] flex-[1 1 auto]">
             <section className="flex flex-col items-center justify-between">
-                <h1 className="text-[7vh] font-bold pb-[10vh]">{params.locale === "ru" ? "Новости" : "News"}</h1>
+                <h1 className="text-[7vh] font-bold pb-[10vh]">{local=== "ru" ? "Новости" : "News"}</h1>
                 <ul>
-                    {news.map((item, index) => <li key={index} className="m-3">
-                        <h2 className="font-bold">{item[params.locale].title}</h2>
-                        <p>{item[params.locale].description}</p>
-                        <div> {item[params.locale].date}</div>
+                    {pagiNews[getPage.slice(getPage.length - 1) - 1].map((item, index) => <li key={index} className="m-3">
+                        <h2 className="font-bold">{item[local].title}</h2>
+                        <p>{item[local].description}</p>
+                        <div> {item[local].date}</div>
                     </li>)}
                 </ul>
+                <PaginationNews ln={local}/>
             </section>
         </main>
     )

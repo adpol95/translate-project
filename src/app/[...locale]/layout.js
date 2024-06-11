@@ -4,9 +4,9 @@ import Footer from "@/app/components/Footer";
 export default function Layout({ children, params }) {
     return (
         <>
-            <Header ln={params.locale}/>
+            <Header ln={params.locale[0]}/>
             {children}
-            <Footer ln={params.locale}/>
+            <Footer ln={params.locale[0]}/>
         </>
     )
 }
