@@ -9,13 +9,11 @@ export default function NewsList(props) {
     if (!btnMoreNews) return (<button onClick={() => setBtnMoreNews(2)} className={btnStyle}>
         Загурузить еще ...
     </button>)
-    useEffect(() => {
-        fetching(btnMoreNews)
-            .then((res) => {
-                setNews(res)
-            })
-            .catch((err) => console.log(err))
-    }, []);
+    fetching(btnMoreNews)
+        .then((res) => {
+            setNews(res)
+        })
+        .catch((err) => console.log(err))
 
     return (<div>
         <ul>

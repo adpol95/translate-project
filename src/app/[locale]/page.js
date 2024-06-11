@@ -22,7 +22,7 @@ export default async function LanguagePic({params}) {
     // console.log(datas)
     const news = await fetching(1);
     if (!news) return (<p className="pt-[20vh] pb-[8vh] flex-[1 1 auto]">
-        Sorry, we don't have any news yet.
+        Sorry, we don not have any news yet.
     </p>)
     const local = params.locale;
     return (
