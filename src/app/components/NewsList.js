@@ -1,5 +1,5 @@
 "use client"
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import fetching from "@/app/fetch";
 
 export default function NewsList(props) {
