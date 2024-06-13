@@ -4,6 +4,7 @@ import { i18n } from "../i18n-config";
 
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import {cookies} from "next/headers";
 
 function getLocale(request){
     // Negotiator expects plain object so we need to transform headers
@@ -43,11 +44,12 @@ export function middleware(request) {
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
         const locale = getLocale(request);
-
+        const cookieStore = cookies();
+        const haveCookie = cookieStore.get("lang");
         // e.g. incoming request is /products
         // The new URL is now /en-US/products
         return NextResponse.redirect(
-            new URL(
+            new URL(haveCookie ? `${haveCookie.value}` :
                 `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
                 request.url,
             ),
