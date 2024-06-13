@@ -24,6 +24,13 @@ export default function Header(props) {
                 ru: "Пробки",
                 en: "Traffic jams",
             }
+        },
+        {
+            id: rndm(),
+            text: {
+                ru: "События",
+                en: "Events",
+            }
         }
     ]
 
@@ -31,8 +38,8 @@ export default function Header(props) {
         <header className="bg-orange text-white p-6 fixed top-0 right-0 left-0 rounded-b-xl shadow-md z-20 text-[1.5vh]">
             <nav className="w-full">
                 <ul className="flex justify-around">
-                    {data.map(el => <li key={el.id}>
-                        <Link href="">
+                    {data.map((el, i) => <li key={el.id}>
+                        <Link href={i === 3 ? `${process.env.url}${props.ln}/events` : ""}>
                             {el.text[props.ln.slice()]}
                         </Link>
                     </li>)}

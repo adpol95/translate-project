@@ -21,6 +21,15 @@ export default function NewsList(props) {
             disabledBtn: "There is no more news =("
         }
     }
+    const caller = async () => {
+        try {
+            const take = await fetching(counter);
+            setNews([...news, ...take.news]);
+            setCounter(counter + 1);
+        } catch (err) {
+            console.log(err)
+        }
+    }
     // if (!btnMoreNews) return (<button onClick={() => setBtnMoreNews(2)} className={btnStyle}>
     //     Загурузить еще ...
     // </button>)
@@ -42,22 +51,14 @@ export default function NewsList(props) {
             <h1 className="text-[7vh] font-bold pb-[10vh]">{languages[props.ln].title}</h1>
             <ul>
                 {news.map((item, index) => <li key={index} className="m-3">
-                    <Link href={`http://localhost:3000/${props.ln}/news/${index + 1}`} className="hover:text-orange transition-colors delay-30 active:text-orange-pick text-[2vh]">
+                    <Link href={`${process.env.url}${props.ln}/news/${index + 1}`} className="hover:text-orange transition-colors delay-30 active:text-orange-pick text-[2vh]">
                     <h2 className="font-bold">{item[props.ln].title}</h2>
                     <button type="button" className="text-ellipsis overflow-hidden w-[10vw] h-[1.2em] whitespace-nowrap">{item[props.ln].description}</button>
                     <div> {item[props.ln].date}</div>
                     </Link>
                 </li>)}
             </ul>
-            <button disabled={counter > props.firstNews.pagination.pages} onClick={async () => {
-                try {
-                    const take = await fetching(counter);
-                    setNews([...news, ...take.news]);
-                    setCounter(counter + 1);
-                } catch (err) {
-                    console.log(err)
-                }
-            }}
+            <button disabled={counter > props.firstNews.pagination.pages} onClick={caller}
                     className={(counter > props.firstNews.pagination.pages) ? btnCommonStyles + "bg-gray-dark" : btnCommonStyles + btnActiveStyle}> {counter > props.firstNews.pagination.pages ? languages[props.ln].disabledBtn : languages[props.ln].activeBtn}
             </button>
         </section>

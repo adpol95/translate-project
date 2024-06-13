@@ -4,6 +4,9 @@ import data from "./data.json";
 export async function POST(request) {
     const body = await request.json();
     console.log(body.page)
+    if (body.type === "events") {
+        return NextResponse.json(data)
+    }
     if (body.type === "exact") {
         return NextResponse.json(data[body.page - 1])
     }

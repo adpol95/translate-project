@@ -3,7 +3,7 @@ export default async function fetching(pg, tp) {
     let data = null;
 
     try {
-        const res = await fetch("http://localhost:3000/api/chat-gpt",
+        const res = await fetch(`${process.env.url}api/chat-gpt`,
             {
                 method: "POST",
                 headers: {
