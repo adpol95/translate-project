@@ -21,10 +21,11 @@ module.exports = {
       'orange-pick': '#d07c4f',
       'green': '#13ce66',
       'yellow': '#ffda8e',
-      'gray-dark': '#273444',
+      'gray-dark': 'rgba(47,47,47,0.5)',
       'gray': 'rgba(118,125,157,0.35)',
       'gray-light': '#d3dce6',
-      'white': '#ffffff',
+      'white': 'rgb(255,255,255)',
+      'transp': 'rgba(255,255,255,0)',
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

@@ -1,3 +1,4 @@
+"use server";
 export default async function fetching(pg) {
     let data = null;
 

@@ -26,18 +26,8 @@ export default async function LanguagePic({params}) {
     </p>)
     const local = params.locale;
     return (
-        <main className="pt-[20vh] pb-[8vh] flex-[1 1 auto]">
-            <section className="flex flex-col items-center justify-between">
-                <h1 className="text-[7vh] font-bold pb-[10vh]">{local === "ru" ? "Новости" : "News"}</h1>
-                <ul>
-                    {news.map((item, index) => <li key={index} className="m-3">
-                        <h2 className="font-bold">{item[local].title}</h2>
-                        <p>{item[local].description}</p>
-                        <div> {item[local].date}</div>
-                    </li>)}
-                </ul>
-                <NewsList ln={local}/>
-            </section>
+        <main className="pt-[20vh] pb-[18vh] flex-[1 1 auto]">
+            <NewsList ln={local} firstNews={news}/>
         </main>
     )
 }
