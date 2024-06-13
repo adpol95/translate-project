@@ -1,13 +1,14 @@
 "use client"
 import {useState} from "react";
 import fetching from "@/app/fetch";
+import Link from 'next/link'
 
 export default function NewsList(props) {
 
-    const btnCommonStyles = "text-white px-[1.2em] py-[.8em] rounded-[10px] cursor-pointer absolute bottom-[-10vh] ";
+    const btnCommonStyles = "text-[2vh] text-white px-[1.2em] py-[.8em] rounded-[10px] cursor-pointer absolute bottom-[-10vh] ";
     const btnActiveStyle = "bg-orange shadow-md hover:text-[1.3em] active:bg-yellow transition-font-size duration-150";
     const [news, setNews] = useState([...props.firstNews.news]);
-    const [counter, setCounter] = useState(props.firstNews.pagination.pages);
+    const [counter, setCounter] = useState(props.firstNews.pagination.pages - props.firstNews.pagination.pages + 2);
     const languages = {
         ru: {
             title: "Новости",
@@ -41,21 +42,23 @@ export default function NewsList(props) {
             <h1 className="text-[7vh] font-bold pb-[10vh]">{languages[props.ln].title}</h1>
             <ul>
                 {news.map((item, index) => <li key={index} className="m-3">
+                    <Link href={`http://localhost:3000/${props.ln}/news/${index + 1}`} className="hover:text-orange transition-colors delay-30 active:text-orange-pick text-[2vh]">
                     <h2 className="font-bold">{item[props.ln].title}</h2>
-                    <p>{item[props.ln].description}</p>
+                    <button type="button" className="text-ellipsis overflow-hidden w-[10vw] h-[1.2em] whitespace-nowrap">{item[props.ln].description}</button>
                     <div> {item[props.ln].date}</div>
+                    </Link>
                 </li>)}
             </ul>
-            <button disabled={!counter} onClick={async () => {
+            <button disabled={counter > props.firstNews.pagination.pages} onClick={async () => {
                 try {
                     const take = await fetching(counter);
                     setNews([...news, ...take.news]);
-                    setCounter(counter - 1);
+                    setCounter(counter + 1);
                 } catch (err) {
                     console.log(err)
                 }
             }}
-                    className={(!counter) ? btnCommonStyles + "bg-gray-dark" : btnCommonStyles + btnActiveStyle}> {!counter ? languages[props.ln].disabledBtn : languages[props.ln].activeBtn}
+                    className={(counter > props.firstNews.pagination.pages) ? btnCommonStyles + "bg-gray-dark" : btnCommonStyles + btnActiveStyle}> {counter > props.firstNews.pagination.pages ? languages[props.ln].disabledBtn : languages[props.ln].activeBtn}
             </button>
         </section>
     )

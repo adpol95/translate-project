@@ -1,5 +1,5 @@
 "use server";
-export default async function fetching(pg) {
+export default async function fetching(pg, tp) {
     let data = null;
 
     try {
@@ -11,6 +11,7 @@ export default async function fetching(pg) {
                 },
                 body: JSON.stringify({
                     page: pg,
+                    type: tp
                 }),
                 cache: "no-store",
             });
