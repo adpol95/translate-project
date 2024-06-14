@@ -18,10 +18,10 @@ export default function PopUpMenu(props) {
                     setAnima(false);
                     setTimeout(() => setLangStateArea(!langStateArea), 500);
                 }
-            }}>
+            }} className="hover:text-yellow transition-colors delay-30 active:text-gray-dark">
                 {props.ln === "ru" ? "Язык" : "Language"}
             </button>
-            <ChangingLanguage lsa={langStateArea} anim={anima}/>
+            <ChangingLanguage lsa={langStateArea} anim={anima} ln={props.ln}/>
         </div>
     )
 }

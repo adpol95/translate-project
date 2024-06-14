@@ -12,7 +12,7 @@ export default function Footer(props) {
         },
     ];
     return (
-        <footer className="bg-yellow p-6 rounded-t-xl w-full shadow-md text-[1.5vh]">
+        <footer className="bg-yellow p-6 rounded-t-xl w-full shadow-md z:text-[1.5vw] xl:text-[1.3vw]">
             <nav className="w-full">
                 <ul className="flex justify-around">
                     {data.find(el => el.lang === props.ln).list.map(el => <li key={Math.random() * 10 + 1}>

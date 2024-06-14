@@ -35,11 +35,11 @@ export default function Header(props) {
     ]
 
     return (
-        <header className="bg-orange text-white p-6 fixed top-0 right-0 left-0 rounded-b-xl shadow-md z-20 text-[1.5vh]">
+        <header className="bg-orange text-white p-6 fixed top-0 right-0 left-0 rounded-b-xl shadow-md z-20 z:text-[1.5vw] xl:text-[1.3vw]">
             <nav className="w-full">
                 <ul className="flex justify-around">
                     {data.map((el, i) => <li key={el.id}>
-                        <Link href={i === 3 ? `${process.env.url}${props.ln}/events` : ""}>
+                        <Link href={i === 3 ? `${process.env.url}${props.ln}/events` : i === 0 ? `${process.env.url}${props.ln}/news` : ""} className="hover:text-yellow transition-colors delay-30 active:text-gray-dark">
                             {el.text[props.ln.slice()]}
                         </Link>
                     </li>)}
