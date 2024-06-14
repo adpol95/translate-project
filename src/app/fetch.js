@@ -1,7 +1,6 @@
 "use server";
-export default async function fetching(pg, tp) {
+export default async function fetching(pg, tp, sr) {
     let data = null;
-
     try {
         const res = await fetch(`${process.env.url}api/chat-gpt`,
             {
@@ -11,7 +10,8 @@ export default async function fetching(pg, tp) {
                 },
                 body: JSON.stringify({
                     page: pg,
-                    type: tp
+                    type: tp,
+                    sort: sr
                 }),
                 cache: "no-store",
             });
