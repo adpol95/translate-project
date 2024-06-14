@@ -35,7 +35,7 @@ export default function Header(props) {
     ]
 
     return (
-        <header className="bg-orange text-white p-6 fixed top-0 right-0 left-0 rounded-b-xl shadow-md z-20 z:text-[1.5vw] xl:text-[1.3vw]">
+        <header className="bg-orange text-white p-6 fixed top-0 right-0 left-0 rounded-b-xl shadow-md z-20 z:text-[1.5vw] xl:text-[1vw]">
             <nav className="w-full">
                 <ul className="flex justify-around">
                     {data.map((el, i) => <li key={el.id}>

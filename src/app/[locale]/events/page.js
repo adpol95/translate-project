@@ -61,7 +61,7 @@ export default async function Events({params}) {
         <main className="pt-[20vh] pb-[18vh] w-full">
             <section className="flex flex-col items-center justify-between p-[10vh]">
                 <h1 className="text-[7vh] font-bold pb-[10vh]">{local === "ru" ? "События" : "Events"}</h1>
-                <table className={`table-auto ${borderStyle} z:text-[1.5vw] xl:text-[1.3vw] overflow-x-auto`}>
+                <table className={`table-auto ${borderStyle} z:text-[1.5vw] xl:text-[.8vw] overflow-x-auto`}>
                     <thead className={borderStyle}>
                     <tr className={`${borderStyle} bg-gray-light font-bold`}>
                         <th className="p-5 min-w-[15vw]">{local === "ru" ? "Дата" : "Date"}</th>
@@ -74,8 +74,8 @@ export default async function Events({params}) {
                         const div = item[local].date.split("-");
                         return <>
                             {i === 0 || item.year - news[i - 1].year ?
-                                <tr key={item.id} className={`${borderStyle} h-[3.5vh] relative`}>
-                                    <td className="font-bold absolute left-0 right-0 top-[4px] text-center">{item.year}</td>
+                                <tr key={item.id} className={`${borderStyle} h-[3.5vw] relative`}>
+                                    <td className="font-bold absolute left-0 right-0 top-[25%] text-center">{item.year}</td>
                                 </tr>
                                 : ""}
                             <tr key={item.id} className={`${borderStyle}`}>
