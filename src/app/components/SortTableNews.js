@@ -7,7 +7,7 @@ export default function SortTableNews(props) {
     const [news, setNews] = useState(props.nw);
     const [state, setState] = useState(true);
     const pointerArrow = {
-        en: !state ? "new-old" : "old-new",
+        en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
     }
 
