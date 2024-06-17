@@ -6,6 +6,7 @@ export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
     const [news, setNews] = useState(props.nw);
     const [state, setState] = useState(true);
+    const [btnState, setBtnState] = useState(false);
     const pointerArrow = {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
@@ -16,6 +17,7 @@ export default function SortTableNews(props) {
             const take = await fetching(null, null, state ? "up" : "down");
             setState(!state);
             setNews(take);
+            setBtnState(false);
         } catch (err) {
             console.log(err)
         }
@@ -26,12 +28,19 @@ export default function SortTableNews(props) {
             <table className={`table-auto ${borderStyle} z:text-[1.5vw] xl:text-[.8vw] overflow-x-auto`}>
                 <thead className={borderStyle}>
                 <tr className={`${borderStyle} bg-gray-light font-bold`}>
-                    <th className="p-5 min-w-[15vw]" key={6566}>
-                        {props.ln === "ru" ? "Дата" : "Date"}
-                        <button type="submit" onClick={caller} className="group relative pl-1 active:text-[1vw]">
+                    <th className="p-5 min-w-[15vw] cursor-pointer" key={6566} onClick={() => {
+                        setBtnState(true);
+                        setTimeout(caller,2000);
+                    }}>
+                        <button type="submit"
+                                className={`group relative pl-1 ${btnState ? "text-red" : "text-black"} transition-colors delay-100`}
+                                disabled={btnState}>
+                            {props.ln === "ru" ? "Дата" : "Date"}
                             {state ? <>&#8595;</> : <>&#8593;</>}
-                            <div
-                                className="text-[1vw] text-gray-light absolute top-[-10px] left-5 bg-gray-dark p-1 rounded-md shadow-lg opacity-0 transition-opacity delay-30 group-hover:opacity-100 pointer-events-none bol">{pointerArrow[props.ln]}
+                            <div className="text-[1vw] text-gray-light absolute top-[-20px] left-[45px] bg-gray-dark p-1
+                                rounded-md shadow-lg opacity-0 transition-opacity delay-30 group-hover:opacity-100
+                                pointer-events-none bol">
+                                {pointerArrow[props.ln]}
                             </div>
                         </button>
                     </th>
@@ -69,7 +78,7 @@ export default function SortTableNews(props) {
                                 const div = el2.date.split("-");
                                 return <tr className={`${borderStyle}`} key={i2 * 6226}>
                                     <td className="p-2 text-center align-middle"
-                                        key={i + 1}>{`${div[div.length - 1]} ${props.lb[div[div.length - 2] - 1][props.ln]}`}</td>
+                                        key={i + 1}>{`${div[div.length - 1].slice(0, div[div.length - 1].indexOf("T"))} ${props.lb[div[div.length - 2] - 1][props.ln]}`}</td>
                                     <td className="p-5 text-center align-middle" key={i + 2}>{el2[props.ln].title}</td>
                                     <td className="p-5 text-center align-middle"
                                         key={i + 3}>{el2[props.ln].description}</td>
