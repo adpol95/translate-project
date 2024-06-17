@@ -48,11 +48,16 @@ module.exports = {
         slideOut: {
           '0%': { transform: 'translate(0, 0)' },
           '100%': { transform: 'translate(0, -180%)'},
-        }
+        },
+        roll: {
+          '0%': { transform: 'rotate(0turn)' },
+          '100%': { transform: 'rotate(0.5turn)' },
+        },
       },
       animation: {
         slideIn: 'slideIn .55s ease-in-out',
         slideOut: 'slideOut .55s ease-in-out',
+        roll: 'roll .55s ease-in-out',
       }
     },
     plugins: [],

@@ -7,6 +7,7 @@ export default function SortTableNews(props) {
     const [news, setNews] = useState(props.nw);
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
+    const [animatTime, setAnimatTime] = useState(false);
     const pointerArrow = {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
@@ -15,9 +16,14 @@ export default function SortTableNews(props) {
     const caller = async () => {
         try {
             const take = await fetching(null, null, state ? "up" : "down");
-            setState(!state);
-            setNews(take);
-            setBtnState(false);
+            setAnimatTime(true);
+            setTimeout(() => {
+                setState(!state);
+                setNews(take);
+                setBtnState(false);
+                setAnimatTime(false);
+            }, 550)
+
         } catch (err) {
             console.log(err)
         }
@@ -30,16 +36,16 @@ export default function SortTableNews(props) {
                 <tr className={`${borderStyle} bg-gray-light font-bold`}>
                     <th className="p-5 min-w-[15vw] cursor-pointer" key={6566} onClick={() => {
                         setBtnState(true);
-                        setTimeout(caller,2000);
+                        setTimeout(caller, 2000);
                     }}>
                         <button type="submit"
-                                className={`group relative pl-1 ${btnState ? "text-red" : "text-black"} transition-colors delay-100`}
+                                className={`group relative ${btnState ? "text-red animate-pulse" : "text-black"} transition-colors delay-100`}
                                 disabled={btnState}>
                             {props.ln === "ru" ? "Дата" : "Date"}
-                            {state ? <>&#8595;</> : <>&#8593;</>}
-                            <div className="text-[1vw] text-gray-light absolute top-[-20px] left-[45px] bg-gray-dark p-1
+                            <p className={`absolute top-0 left-[115%] ${!animatTime ? "" : "animate-roll"}`}> {state ? <>&#8595;</> : <>&#8593;</>}</p>
+                            <div className="text-[1vw] text-gray-light absolute top-[-150%] left-[150%] bg-gray-dark p-1
                                 rounded-md shadow-lg opacity-0 transition-opacity delay-30 group-hover:opacity-100
-                                pointer-events-none bol">
+                                pointer-events-none">
                                 {pointerArrow[props.ln]}
                             </div>
                         </button>
