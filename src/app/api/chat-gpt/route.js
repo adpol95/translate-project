@@ -31,10 +31,17 @@ export async function POST(request) {
                 }
             }
         }
-    })
-    if (body.type === "events" || body.sort === "down") return NextResponse.json(sortByYear.sort((a, b) => a.year - b.year));
-    if (body.sort === "up") return NextResponse.json(sortByYear.sort((a, b) => a.year - b.year).reverse());
-
+    });
+    const testArray = [[], [], [], [], []];
+    sortByYear.forEach(el => {
+        // console.log(el.year[el.year.length - 1])
+        testArray[el.year[el.year.length - 1]].push(el);
+    });
+    const downNews = testArray.map(el => el.sort((a, b) => a.date.slice(5,7)  + b.date.slice(5,7)));
+    const upperNews = [...downNews].sort((a, b) => b[0].year - a[0].year);
+    // console.log(sortByYear.sort((a, b) => a.date.slice(5,7) + b.date.slice(5,7) && a.year - b.year))
+    if (body.type === "events" || body.sort === "down") return NextResponse.json(upperNews);
+    if (body.sort === "up") return NextResponse.json(downNews);
     if (body.type === "exact") {
         return NextResponse.json(data[body.page - 1])
     }
