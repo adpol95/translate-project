@@ -31,7 +31,7 @@ export default function SortTableNews(props) {
                         <button type="submit" onClick={caller} className="group relative pl-1 active:text-[1vw]">
                             {state ? <>&#8595;</> : <>&#8593;</>}
                             <div
-                                className="absolute top-[-10px] left-5 bg-gray p-1 rounded-md shadow-l opacity-0 transition-opacity delay-30 group-hover:opacity-100 pointer-events-none bol">{pointerArrow[props.ln]}
+                                className="text-[1vw] text-gray-light absolute top-[-10px] left-5 bg-gray-dark p-1 rounded-md shadow-lg opacity-0 transition-opacity delay-30 group-hover:opacity-100 pointer-events-none bol">{pointerArrow[props.ln]}
                             </div>
                         </button>
                     </th>
