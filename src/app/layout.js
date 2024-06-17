@@ -4,8 +4,8 @@ import "./reset-default-browser.css";
 
 
 export const metadata = {
-    title: "Translate Project",
-    description: "Translate on 3 different language",
+    title: "News Project",
+    description: "News",
 };
 
 export default function RootLayout({children}) {

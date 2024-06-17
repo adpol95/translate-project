@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {Fragment, useState} from "react";
 import fetching from "@/app/fetch";
 
@@ -26,6 +26,9 @@ export default function SortTableNews(props) {
 
         } catch (err) {
             console.log(err)
+            alert(props.ln === "en" ? err : "Невозможно подключиться к серверу, повторите попытку позднее");
+            setBtnState(false);
+            setAnimatTime(false);
         }
     }
     return (
