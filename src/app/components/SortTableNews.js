@@ -46,7 +46,7 @@ export default function SortTableNews(props) {
                             <div className="text-[1vw] text-gray-light absolute top-[-150%] left-[150%] bg-gray-dark p-1
                                 rounded-md shadow-lg opacity-0 transition-opacity delay-30 group-hover:opacity-100
                                 pointer-events-none">
-                                {pointerArrow[props.ln]}
+                                {btnState && props.ln === "en" ? "Loading..." : btnState && props.ln === "ru" ? "Загрузка..." : pointerArrow[props.ln]}
                             </div>
                         </button>
                     </th>
