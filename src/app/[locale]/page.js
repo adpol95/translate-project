@@ -1,7 +1,11 @@
 import Link from "next/link";
+import ThemeToggle from "@/app/components/ThemeToggle";
 
+export const metadata = {
+    title: "Home page",
+    description: "Generated for Home page",
+};
 export default async function Home({params}) {
-    console.log(params.locale)
     return (
         <main className="pt-[30vh] pb-[18vh] flex-[1 1 auto]">
             <section>
@@ -10,6 +14,7 @@ export default async function Home({params}) {
                         {params.locale === "ru" ? "Новости" : "News"}
                     </h1>
                 </Link>
+                <ThemeToggle/>
             </section>
         </main>
     )
