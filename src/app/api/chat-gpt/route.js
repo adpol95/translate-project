@@ -47,7 +47,7 @@ export async function POST(request) {
     const readyNews = data.map(el => new Object({
         en: {title: el.en.title, description: el.en.description},
         ru: {title: el.ru.title, description: el.ru.description},
-        date: new Date(el.en.date.split("-").reverse().join("-")),
+        date: new Date(el.en.date.split(".").reverse().join(".")),
     })).sort((a, b) => a.date - b.date); // *1 Начальная сортировка - по убыванию
     const newsInYears = {};
     readyNews.forEach(el => {
