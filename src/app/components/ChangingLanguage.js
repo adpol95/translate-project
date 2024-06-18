@@ -16,7 +16,7 @@ export default function ChangingLanguage(props) {
 
     return (
         <div
-            className={props.lsa ? "hidden" : `flex flex-col absolute bg-orange text-white p-5 top-[99%] rounded-b-xl shadow-md ${props.anim ? "animate-slideIn" : "animate-slideOut"}`}>
+            className={props.lsa ? "hidden" : `flex flex-col absolute bg-orange text-white p-5 top-[99%] rounded-b-lg rounded-t-[-200px] shadow-md ${props.anim ? "animate-slideIn" : "animate-slideOut"}`}>
             {
                 // eslint-disable-next-line react/jsx-key
                 data.map(el => <button type="button" key={Math.random()} onClick={() => {

@@ -88,4 +88,5 @@ export async function POST(request) {
     if (body.page && body.page <= dividedNews.length) {
         return NextResponse.json({news: dividedNews[body.page - 1], pagination: {pages: dividedNews.length}})
     } else return NextResponse.json(null)
+
 }

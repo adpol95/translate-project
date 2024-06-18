@@ -11,7 +11,7 @@ export default async function fetching(pg, tp, sr) {
                 body: JSON.stringify({
                     page: pg,
                     type: tp,
-                    sort: sr
+                    sort: sr,
                 }),
                 cache: "no-store",
             });
