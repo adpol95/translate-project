@@ -1,7 +1,6 @@
 "use client";
 import {Fragment, useState} from "react";
 import fetching from "@/app/fetch";
-import {log} from "next/dist/server/typescript/utils";
 
 export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
