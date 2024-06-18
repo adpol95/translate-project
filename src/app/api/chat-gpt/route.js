@@ -32,33 +32,46 @@ export async function POST(request) {
     //         }
     //     }
     // });
-    let counterForNews = 0;
-    const sortByYear = data.map((el, i) => {
-        if (i % 4 === 0) counterForNews++;
-        return {
-            en: {title: el.en.title, description: el.en.description},
-            ru: {title: el.ru.title, description: el.ru.description},
-            date: new Date(el.en.date.replace(/\d\d\d\d/, "202" + counterForNews)),
-            year: "202" + counterForNews
-        }
-    })
 
-    const readyArray = [];
-    let containerYear = [];
-    sortByYear.forEach((el, i) => {
-        i += 1;
-        if (i && i % 4 === 0) {
-            readyArray.push(containerYear);
-            containerYear = [];
-        } else containerYear.push(el);
-    });
+    // let counterForNews = 0;
+    // const sortByYear = data.map((el, i) => {
+    //     if (i % 4 === 0) counterForNews++;
+    //     return {
+    //         en: {title: el.en.title, description: el.en.description},
+    //         ru: {title: el.ru.title, description: el.ru.description},
+    //         date: new Date(el.en.date.replace(/\d\d\d\d/, "202" + counterForNews)),
+    //         year: "202" + counterForNews
+    //     }
+    // })
 
-    const downNews = readyArray.map(el => el.sort((a, b) => a.date.getMonth() + b.date.getMonth() + 1));
-    const upperNews = [...downNews].sort((a, b) => b[0].year - a[0].year);
-    // console.log(sortByYear.sort((a, b) => a.date.slice(5,7) + b.date.slice(5,7) && a.year - b.year))
+    const readyNews = data.map(el => new Object({
+        en: {title: el.en.title, description: el.en.description},
+        ru: {title: el.ru.title, description: el.ru.description},
+        date: new Date(el.en.date.split("-").reverse().join("-")),
+    })).sort((a, b) => a.date - b.date); // *1 Начальная сортировка - по убыванию
+    const newsInYears = {};
+    readyNews.forEach(el => {
+        const currentYear = el.date.getFullYear();
+        const exists = newsInYears[currentYear];
+        newsInYears[currentYear] = exists ? [...exists, el] : [el]
+    }); // Переформатирование данных в обьектный тип, для лучшего удобства работы на клиенте, а именно - дробления по годам
 
+    // const readyArray = [];
+    // let containerYear = [];
+    // sortByYear.forEach((el, i) => {
+    //     i += 1;
+    //     if (i && i % 4 === 0) {
+    //         readyArray.push(containerYear);
+    //         containerYear = [];
+    //     } else containerYear.push(el);
+    // });
+    //
+    // const downNews = newsInYears.map(el => el.sort((a, b) => a.date.getMonth() + b.date.getMonth() + 1));
+
+    const upperNews = Object.entries(newsInYears).sort((a, b) => b[0] - a[0]);
     if (body.type === "events" || body.sort === "down") return NextResponse.json(upperNews);
-    if (body.sort === "up") return NextResponse.json(downNews);
+    if (body.sort === "up") return NextResponse.json(Object.entries(newsInYears)); // *1
+
     if (body.type === "exact") {
         return NextResponse.json(data[body.page - 1])
     }

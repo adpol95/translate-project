@@ -1,6 +1,7 @@
 "use client";
 import {Fragment, useState} from "react";
 import fetching from "@/app/fetch";
+import {log} from "next/dist/server/typescript/utils";
 
 export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
@@ -80,14 +81,13 @@ export default function SortTableNews(props) {
                 {news.map((el, i) => <Fragment key={i}>
                         <tr className={`${borderStyle} h-[3.5vw] relative`}>
                             <td className="font-bold absolute left-0 right-0 top-[25%] text-center"
-                                key={i * 52}>{el[0].year}</td>
+                                key={i * 52}>{el[0]}</td>
                         </tr>
                         {
-                            el.map((el2, i2) => {
-                                const div = el2.date.split("-");
+                            el[1].map((el2, i2) => {
                                 return <tr className={`${borderStyle}`} key={i2 * 6226}>
                                     <td className="p-2 text-center align-middle"
-                                        key={i + 1}>{`${div[div.length - 1].slice(0, div[div.length - 1].indexOf("T"))} ${props.lb[div[div.length - 2] - 1][props.ln]}`}</td>
+                                        key={i + 1}>{new Date(el2.date).getDate() + " " + props.lb[new Date(el2.date).getMonth()][props.ln]} </td>
                                     <td className="p-5 text-center align-middle" key={i + 2}>{el2[props.ln].title}</td>
                                     <td className="p-5 text-center align-middle"
                                         key={i + 3}>{el2[props.ln].description}</td>
