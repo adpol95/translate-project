@@ -47,7 +47,7 @@ export async function POST(request) {
     const readyNews = data.map(el => new Object({
         en: {title: el.en.title, description: el.en.description},
         ru: {title: el.ru.title, description: el.ru.description},
-        date: new Date(el.en.date.split(".").reverse().join(".")),
+        date: isNaN(el.en.date[2]) ? new Date(el.en.date.split("." || "-").reverse().join("." || "-")) : new Date(el.en.date), // Доп проверка, пока только двух варицациий, д.м.г или г.м.д
     })).sort((a, b) => a.date - b.date); // *1 Начальная сортировка - по убыванию
     const newsInYears = {};
     readyNews.forEach(el => {
