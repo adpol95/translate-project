@@ -5,91 +5,96 @@ import CookieSetBtn from "@/app/components/CookieSetBtn";
 import DelBtn from "@/app/components/DelBtn";
 
 export default function SignIn(props) {
-    const [mainState, setMainState] = useState({
-        authIsPass: props.cookieAuth,
-        authMenu: false,
-        anima: true,
-        counter: 0,
+    const [formState, setFormState] = useState({
         name: "",
         password: "",
-        cnfrPassword: "",
-        registBtn: false
+        cnfrPassword: ""
     })
-    const popUpMenu = () => {
-        if (!mainState.authIsPass) {
-            if (mainState.counter % 2 === 0) {
-                setMainState({
-                    ...mainState,
-                    counter: mainState.counter + 1,
-                    authMenu: !mainState.authMenu,
-                    anima: true
-                });
-            } else {
-                setMainState({...mainState, counter: mainState.counter + 1, anima: false});
-                setTimeout(() => setMainState({
-                    ...mainState,
-                    counter: mainState.counter + 1,
-                    authMenu: !mainState.authMenu
-                }), 500);
-            }
-        }
+    const [authMenu, setAuthMenu] = useState(false);
+    const [registnBtn, setRegistnBtn] = useState(false);
+    const locTitles = {
+        prfl: {
+            en: "Profile",
+            ru: "Личный кабинет"
+        },
+        reg: {
+            en: "Registration",
+            ru: "Регистрация"
+        },
+        auth: {
+            en: "Authorization",
+            ru: "Авторизация"
+        },
+        confirmPass: {
+            en: "Confirm password:",
+            ru: "Подтвердите пароль:"
+        },
+    }
+
+    const popUpMenu = (event) => {
+        event.preventDefault();
+        setAuthMenu(!authMenu);
     }
     const changeInput = (event) => {
-        setMainState({...mainState, [event.target.name]: event.target.value})
+        setFormState({...formState, [event.target.name]: event.target.value})
     }
-    const styleForm = `${mainState.authMenu ? "flex" : "hidden"} top-[1.6vw] absolute bg-orange flex flex-col p-5 rounded-b-lg`;
+    const styleForm = `bg-orange py-[10vw] px-[5vw] rounded-lg relative flex flex-col gap-2`;
+    const hoverTextYellow = "hover:text-yellow transition-colors delay-30 active:text-gray-dark";
+
+
     return (
-        <div className="group relative flex flex-col">
-            <button onClick={popUpMenu} className="hover:text-yellow transition-colors delay-30 active:text-gray-dark">
-                {mainState.authMenu ? mainState.registBtn ? <p>
-                            {props.ln === "en" ? "Registration" : "Регистрация"}
-                        </p> :
-                        <p>{props.ln === "en" ? "Authorization" : "Авторизация"}</p>
-                    :
-                    <Link href={mainState.authIsPass ? `${process.env.url}${props.ln}/authorization` : ""}>
-                        {props.ln === "en" ? "Profile" : "Личный кабинет"}
-                    </Link>
-                }
+        <div className="group flex flex-col relative">
+            <button onClick={popUpMenu} className={hoverTextYellow}>
+                <Link href={props.cookieAuth ? `${process.env.url}${props.ln}/authorization` : ""}>
+                    {locTitles.prfl[props.ln]}
+                </Link>
             </button>
-            {mainState.authIsPass ?
-                <DelBtn ln={props.ln} cook={mainState.authIsPass.value} st={styleForm} an={mainState.anima}/>
+            {props.cookieAuth ?
+                <DelBtn ln={props.ln}
+                        an={authMenu}
+                        hy={hoverTextYellow}/>
                 :
-                <form
-                    className={`${styleForm} left-[-4.5em] ${mainState.anima ? "animate-slideIn" : "animate-slideOut"}`}>
-                    <label htmlFor="fname">{props.ln === "en" ? "Name:" : "Имя:"}</label><br/>
-                    <input className="text-black" type="text" id="name" name="name" value={mainState.name}
-                           onChange={changeInput}/><br/>
-                    <label htmlFor="lname">{props.ln === "en" ? "Password:" : "Пароль:"}</label><br/>
-                    <input className="text-black" type="password" id="password" name="password"
-                           value={mainState.password}
-                           onChange={changeInput}/><br/>
-                    {mainState.registBtn ?
-                        <>
-                            <label
-                                htmlFor="passRetr">{props.ln === "en" ? "Confirm password:" : "Подтвердите пароль:"}</label><br/>
-                            <input className="text-black" type="password" id="cnfrPassword" name="cnfrPassword"
-                                   value={mainState.cnfrPassword}
-                                   onChange={changeInput}/><br/>
-                            <button onClick={() => setMainState({
-                                ...mainState,
-                                registBtn: !mainState.registBtn
-                            })}
-                                    className="hover:text-yellow transition-colors delay-30 active:text-gray-dark"> {props.ln === "en" ? "Authorization" : "Авторизация"}</button>
-                        </>
-                        : <button onClick={() => setMainState({
-                            ...mainState,
-                            registBtn: !mainState.registBtn
-                        })}
-                                  className="hover:text-yellow transition-colors delay-30 active:text-gray-dark">{props.ln === "en" ? "Registration" : "Регистрация"}</button>
-                    }
-                    <br/>
-                    <CookieSetBtn ln={props.ln}
-                                  name={mainState.name}
-                                  ps={mainState.password}
-                                  cnPs={mainState.cnfrPassword}
-                                  regState={mainState.registBtn}
-                                  auth={mainState.authIsPass}/>
-                </form>
+                <div
+                    className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-700 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac`}>
+                    <form className={styleForm}>
+                        <label
+                            className="font-bold text-center pb-5 text-2xl">{registnBtn ? locTitles.reg[props.ln] : locTitles.auth[props.ln]}</label>
+                        <label htmlFor="fname">{props.ln === "en" ? "Name:" : "Имя:"}</label>
+                        <input className="text-black" type="text" id="name" name="name" value={formState.name}
+                               onChange={changeInput}/>
+                        <label htmlFor="lname">{props.ln === "en" ? "Password:" : "Пароль:"}</label>
+                        <input className="text-black" type="password" id="password" name="password"
+                               value={formState.password}
+                               onChange={changeInput}/>
+                        {registnBtn ?
+                            <>
+                                <label
+                                    htmlFor="passRetr">{locTitles.confirmPass[props.ln]}</label>
+                                <input className="text-black" type="password" id="cnfrPassword" name="cnfrPassword"
+                                       value={formState.cnfrPassword}
+                                       onChange={changeInput}/>
+
+                            </>
+                            :
+                            <></>
+                        }
+                        <button onClick={(event) => {
+                            event.preventDefault();
+                            setRegistnBtn(!registnBtn);
+                        }}
+                                className={hoverTextYellow}>{!registnBtn ? locTitles.reg[props.ln] : locTitles.auth[props.ln]}</button>
+                        <CookieSetBtn ln={props.ln}
+                                      name={formState.name}
+                                      ps={formState.password}
+                                      cnPs={formState.cnfrPassword}
+                                      regState={registnBtn}
+                                      auth={authMenu}
+                                      hy={hoverTextYellow}
+                        />
+                        <button className="absolute right-4 top-1 text-4xl cursor-pointer" onClick={popUpMenu}>x
+                        </button>
+                    </form>
+                </div>
             }
         </div>
     )

@@ -25,6 +25,7 @@ module.exports = {
       'black': 'rgb(0,0,0)',
       'red': 'rgba(227,15,15,0.5)',
       'gray': 'rgba(118,125,157,0.2)',
+      'gray-opac': 'rgba(0,0,0,0.5)',
       'gray-light': '#d3dce6',
       'white': 'rgb(255,255,255)',
       'transp': 'rgba(255,255,255,0)',
