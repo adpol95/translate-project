@@ -13,7 +13,7 @@ export default function SignIn(props) {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [cnfrPassword, setCnfrPassword] = useState(authIsPass ? authIsPass.value.slice(authIsPass.value.lastIndexOf("?") + 1) : "");
-    const styleForm = `${authMenu ? "block" : "hidden"}  absolute bg-orange flex flex-col p-5 rounded-b-lg top-[5vw] shadow-md ${anima ? "animate-slideIn" : "animate-slideOut"}`;
+    const styleForm = `${authMenu ? "block" : "hidden"}  absolute bg-orange flex flex-col p-5 rounded-b-lg shadow-md ${anima ? "animate-slideIn" : "animate-slideOut"}`;
     const statusFromCookie = authIsPass ? authIsPass.value.slice(authIsPass.value.indexOf("=") + 1, authIsPass.value.lastIndexOf("?")) : "";
     return (
         <div className="relative">
@@ -53,7 +53,7 @@ export default function SignIn(props) {
                     <input className="text-black" type="text" id="name" name="name" value={name}
                            onChange={(e) => setName(e.target.value)}/><br/>
                     <label htmlFor="lname">{props.ln === "en" ? "Password:" : "Пароль:"}</label><br/>
-                    <input className="text-black" type="text" id="passw" name="passw" value={password}
+                    <input className="text-black" type="password" id="passw" name="passw" value={password}
                            onChange={(e) => setPassword(e.target.value)}/><br/>
                     {!authIsPass || statusFromCookie === "not" ?
                         <>
