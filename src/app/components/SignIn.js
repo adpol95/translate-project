@@ -2,68 +2,93 @@
 import Link from "next/link";
 import {useState} from "react";
 import CookieSetBtn from "@/app/components/CookieSetBtn";
-import DelOrUpdtBtns from "@/app/components/DelOrUpdtBtns";
+import DelBtn from "@/app/components/DelBtn";
 
 export default function SignIn(props) {
-
-    const [authIsPass, setAuthIsPass] = useState(props.cookieAuth);
-    const [authMenu, setAuthMenu] = useState(false);
-    const [anima, setAnima] = useState(true);
-    const [counter, setCounter] = useState(0);
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [cnfrPassword, setCnfrPassword] = useState(authIsPass ? authIsPass.value.slice(authIsPass.value.lastIndexOf("?") + 1) : "");
-    const styleForm = `${authMenu ? "block" : "hidden"}  absolute bg-orange flex flex-col p-5 rounded-b-lg shadow-md ${anima ? "animate-slideIn" : "animate-slideOut"}`;
-    const statusFromCookie = authIsPass ? authIsPass.value.slice(authIsPass.value.indexOf("=") + 1, authIsPass.value.lastIndexOf("?")) : "";
+    const [mainState, setMainState] = useState({
+        authIsPass: props.cookieAuth,
+        authMenu: false,
+        anima: true,
+        counter: 0,
+        name: "",
+        password: "",
+        cnfrPassword: "",
+        registBtn: false
+    })
+    const popUpMenu = () => {
+        if (!mainState.authIsPass) {
+            if (mainState.counter % 2 === 0) {
+                setMainState({
+                    ...mainState,
+                    counter: mainState.counter + 1,
+                    authMenu: !mainState.authMenu,
+                    anima: true
+                });
+            } else {
+                setMainState({...mainState, counter: mainState.counter + 1, anima: false});
+                setTimeout(() => setMainState({
+                    ...mainState,
+                    counter: mainState.counter + 1,
+                    authMenu: !mainState.authMenu
+                }), 500);
+            }
+        }
+    }
+    const changeInput = (event) => {
+        setMainState({...mainState, [event.target.name]: event.target.value})
+    }
+    const styleForm = `${mainState.authMenu ? "flex" : "hidden"} top-[1.6vw] absolute bg-orange flex flex-col p-5 rounded-b-lg`;
     return (
-        <div className="relative">
-            <button onClick={() => {
-                setCounter(counter + 1);
-                if (counter % 2 === 0) {
-                    setAuthMenu(!authMenu);
-                    setAnima(true);
-                } else {
-                    setAnima(false);
-                    setTimeout(() => setAuthMenu(!authMenu), 500);
+        <div className="group relative flex flex-col">
+            <button onClick={popUpMenu} className="hover:text-yellow transition-colors delay-30 active:text-gray-dark">
+                {mainState.authMenu ? mainState.registBtn ? <p>
+                            {props.ln === "en" ? "Registration" : "Регистрация"}
+                        </p> :
+                        <p>{props.ln === "en" ? "Authorization" : "Авторизация"}</p>
+                    :
+                    <Link href={mainState.authIsPass ? `${process.env.url}${props.ln}/authorization` : ""}>
+                        {props.ln === "en" ? "Profile" : "Личный кабинет"}
+                    </Link>
                 }
-            }}>
-                {props.ln === "en" ? "Authorization" : "Авторизация"}
             </button>
-            {statusFromCookie === "OK" ?
-                <div className={`${styleForm} text-center left-[-.5em]`}>
-                    <button onClick={() => {
-                        setCounter(counter + 1);
-                        if (counter % 2 === 0) {
-                            setAuthMenu(!authMenu);
-                            setAnima(true);
-                        } else {
-                            setAnima(false);
-                            setTimeout(() => setAuthMenu(!authMenu), 500);
-                        }
-                    }}>
-                        <Link href={`${process.env.url}${props.ln}/authorization`}>
-                            {props.ln === "en" ? "Profile" : "Личный кабинет"}
-                        </Link>
-                    </button>
-                    <DelOrUpdtBtns ln={props.ln} cook={authIsPass.value}/>
-                </div>
-                : <form
-                    className={`${styleForm} left-[-5em]`}>
+            {mainState.authIsPass ?
+                <DelBtn ln={props.ln} cook={mainState.authIsPass.value} st={styleForm} an={mainState.anima}/>
+                :
+                <form
+                    className={`${styleForm} left-[-4.5em] ${mainState.anima ? "animate-slideIn" : "animate-slideOut"}`}>
                     <label htmlFor="fname">{props.ln === "en" ? "Name:" : "Имя:"}</label><br/>
-                    <input className="text-black" type="text" id="name" name="name" value={name}
-                           onChange={(e) => setName(e.target.value)}/><br/>
+                    <input className="text-black" type="text" id="name" name="name" value={mainState.name}
+                           onChange={changeInput}/><br/>
                     <label htmlFor="lname">{props.ln === "en" ? "Password:" : "Пароль:"}</label><br/>
-                    <input className="text-black" type="password" id="passw" name="passw" value={password}
-                           onChange={(e) => setPassword(e.target.value)}/><br/>
-                    {!authIsPass || statusFromCookie === "not" ?
+                    <input className="text-black" type="password" id="password" name="password"
+                           value={mainState.password}
+                           onChange={changeInput}/><br/>
+                    {mainState.registBtn ?
                         <>
                             <label
                                 htmlFor="passRetr">{props.ln === "en" ? "Confirm password:" : "Подтвердите пароль:"}</label><br/>
-                            <input className="text-black" type="text" id="cnfPassw" name="cnfPassw" value={cnfrPassword}
-                                   onChange={(e) => setCnfrPassword(e.target.value)}/><br/>
+                            <input className="text-black" type="password" id="cnfrPassword" name="cnfrPassword"
+                                   value={mainState.cnfrPassword}
+                                   onChange={changeInput}/><br/>
+                            <button onClick={() => setMainState({
+                                ...mainState,
+                                registBtn: !mainState.registBtn
+                            })}
+                                    className="hover:text-yellow transition-colors delay-30 active:text-gray-dark"> {props.ln === "en" ? "Authorization" : "Авторизация"}</button>
                         </>
-                        : <></>}
-                    <CookieSetBtn ln={props.ln} name={name} ps={password} cnPs={cnfrPassword}/>
+                        : <button onClick={() => setMainState({
+                            ...mainState,
+                            registBtn: !mainState.registBtn
+                        })}
+                                  className="hover:text-yellow transition-colors delay-30 active:text-gray-dark">{props.ln === "en" ? "Registration" : "Регистрация"}</button>
+                    }
+                    <br/>
+                    <CookieSetBtn ln={props.ln}
+                                  name={mainState.name}
+                                  ps={mainState.password}
+                                  cnPs={mainState.cnfrPassword}
+                                  regState={mainState.registBtn}
+                                  auth={mainState.authIsPass}/>
                 </form>
             }
         </div>
