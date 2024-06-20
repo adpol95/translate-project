@@ -91,7 +91,7 @@ export default function SignIn(props) {
                                       auth={authMenu}
                                       hy={hoverTextYellow}
                         />
-                        <button className={`${hoverTextYellow} absolute right-[2vw] top-1.5 text-[1.7em] cursor-pointer`}
+                        <button className={`${hoverTextYellow} absolute right-[1.5vw] top-1.5 text-[1.7em] cursor-pointer`}
                                 onClick={popUpMenu}>&#10006;
                         </button>
                     </form>
