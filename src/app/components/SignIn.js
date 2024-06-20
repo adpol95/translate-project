@@ -55,7 +55,7 @@ export default function SignIn(props) {
                         hy={hoverTextYellow}/>
                 :
                 <div
-                    className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-700 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac`}>
+                    className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-450 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac`}>
                     <form className={styleForm}>
                         <label
                             className="font-bold text-center pb-5 text-2xl">{registnBtn ? locTitles.reg[props.ln] : locTitles.auth[props.ln]}</label>
@@ -91,7 +91,8 @@ export default function SignIn(props) {
                                       auth={authMenu}
                                       hy={hoverTextYellow}
                         />
-                        <button className="absolute right-4 top-1 text-4xl cursor-pointer" onClick={popUpMenu}>x
+                        <button className={`${hoverTextYellow} absolute right-3.5 top-1.5 text-[1.7em] cursor-pointer`}
+                                onClick={popUpMenu}>&#10006;
                         </button>
                     </form>
                 </div>
