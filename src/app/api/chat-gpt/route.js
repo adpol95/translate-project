@@ -44,7 +44,8 @@ export async function POST(request) {
     //     }
     // })
 
-    const readyNews = data.map(el => new Object({
+    const readyNews = data.map((el, i) => new Object({
+        id: i + 1,
         en: {title: el.en.title, description: el.en.description},
         ru: {title: el.ru.title, description: el.ru.description},
         date: isNaN(el.en.date[2]) ? new Date(el.en.date.split("." || "-").reverse().join("." || "-")) : new Date(el.en.date), // Доп проверка, пока только двух варицациий, д.м.г или г.м.д

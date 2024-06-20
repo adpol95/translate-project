@@ -1,7 +1,9 @@
-export default function Authorization() {
+"use client";
+import {useAppSelector} from "@/app/lib/hooks";
+import SortTableNews from "@/app/components/SortTableNews";
+
+export default function Authorization({params}) {
     return (
-        <main className="pt-[30vh] pb-[18vh] flex-[1 1 auto]">
-            <h1>Authorization</h1>
-        </main>
+        <SortTableNews ln={params.locale} nw={useAppSelector(state => Object.entries(state.favorite.currentFavorite))} tp={"rdx"}/>
     );
 }

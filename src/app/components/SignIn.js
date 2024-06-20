@@ -38,7 +38,7 @@ export default function SignIn(props) {
     const changeInput = (event) => {
         setFormState({...formState, [event.target.name]: event.target.value})
     }
-    const styleForm = `bg-orange py-[10vw] px-[5vw] rounded-lg relative flex flex-col gap-2`;
+    const styleForm = `bg-orange p-[12vw] rounded-lg relative flex flex-col gap-2`;
     const hoverTextYellow = "hover:text-yellow transition-colors delay-30 active:text-gray-dark";
 
 
@@ -54,8 +54,7 @@ export default function SignIn(props) {
                         an={authMenu}
                         hy={hoverTextYellow}/>
                 :
-                <div
-                    className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-450 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac`}>
+                <div id="outer" className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-450 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac cursor-pointer`} onClick={(event) => event.target.id === "outer" ? popUpMenu(event) : ""}>
                     <form className={styleForm}>
                         <label
                             className="font-bold text-center pb-5 text-[3vw]">{registnBtn ? locTitles.reg[props.ln] : locTitles.auth[props.ln]}</label>

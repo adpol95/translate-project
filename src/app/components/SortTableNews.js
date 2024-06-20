@@ -1,6 +1,8 @@
 "use client";
 import {Fragment, useState} from "react";
 import fetching from "@/app/fetch";
+import {useAppDispatch} from "@/app/lib/hooks";
+import {deleteFavorite, updateFavorite} from "@/app/lib/features/favoriteSlice";
 
 export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
@@ -12,10 +14,63 @@ export default function SortTableNews(props) {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
     }
-
+    const lib = [
+        {
+            ru: "Января",
+            en: "January"
+        },
+        {
+            ru: "Февраля",
+            en: "February"
+        },
+        {
+            ru: "Марта",
+            en: "March"
+        },
+        {
+            ru: "Апреля",
+            en: "April"
+        },
+        {
+            ru: "Мая",
+            en: "May"
+        },
+        {
+            ru: "Июня",
+            en: "June"
+        },
+        {
+            ru: "Июля",
+            en: "July"
+        },
+        {
+            ru: "Августа",
+            en: "August"
+        },
+        {
+            ru: "Сентября",
+            en: "September"
+        },
+        {
+            ru: "Октября",
+            en: "October"
+        },
+        {
+            ru: "Ноября",
+            en: "November"
+        },
+        {
+            ru: "Декабря",
+            en: "December"
+        },
+    ]
+    const dispatch = useAppDispatch();
     const caller = async () => {
         try {
-            const take = await fetching(null, null, state ? "up" : "down");
+            const take = props.tp === "ssr" ? await fetching(null, null, state ? "up" : "down") : state ?
+                news.sort((a, b) => b[0] - a[0])
+                :
+                news.sort((a, b) => a[0] - b[0]);
             setAnimatTime(true);
             setTimeout(() => {
                 setState(!state);
@@ -55,45 +110,37 @@ export default function SortTableNews(props) {
                     </th>
                     <th className="p-5" key={32423}>{props.ln === "ru" ? "Событие" : "Event"}</th>
                     <th className="p-5" key={3322}>{props.ln === "ru" ? "Описание" : "Description"}</th>
+                    {props.tp === "rdx" ? <></> :
+                        <th className="p-5" key={3326}>{props.ln === "ru" ? "Добавить" : "Add"}</th>}
+
                 </tr>
                 </thead>
                 <tbody className={borderStyle}>
-                {/*{news.map((item, i) => {*/}
-                {/*    const div = item.date.split("-");*/}
-                {/*    // const year = i === 0 || item.year - news[i - 1].year;*/}
-                {/*    const year = item.year !== news[i - 1]?.year ? item.year : null;*/}
-                {/*    return <Fragment key={item.id}>*/}
-                {/*        {year ?*/}
-                {/*            <tr className={`${borderStyle} h-[3.5vw] relative`}>*/}
-                {/*                <td className="font-bold absolute left-0 right-0 top-[25%] text-center"*/}
-                {/*                    key={i * 52}>{item.year}</td>*/}
-                {/*            </tr>*/}
-                {/*            : <></>}*/}
-                {/*        <tr className={`${borderStyle}`}>*/}
-                {/*            <td className="p-2 text-center align-middle"*/}
-                {/*                key={i + 1}>{`${div[div.length - 1]} ${props.lb[div[div.length - 2] - 1][props.ln]}`}</td>*/}
-                {/*            <td className="p-5 text-center align-middle" key={i + 2}>{item[props.ln].title}</td>*/}
-                {/*            <td className="p-5 text-center align-middle" key={i + 3}>{item[props.ln].description}</td>*/}
-                {/*        </tr>*/}
-                {/*    </Fragment>*/}
-                {/*})}*/}
-                {news.map((el, i) => <Fragment key={i}>
+                {news.map((el, i) => el[1].length ? <Fragment key={i}>
                         <tr className={`${borderStyle} h-[3.5vw] relative`}>
                             <td className="font-bold absolute left-0 right-0 top-[25%] text-center"
                                 key={i * 52}>{el[0]}</td>
                         </tr>
                         {
                             el[1].map((el2, i2) => {
-                                return <tr className={`${borderStyle}`} key={i2 * 6226}>
+                                return i2 === el[1].lastIndexOf(el2) ?
+                                    <tr className={`${borderStyle}`} key={i2 * 6226}>
                                     <td className="p-2 text-center align-middle"
-                                        key={i + 1}>{new Date(el2.date).getDate() + " " + props.lb[new Date(el2.date).getMonth()][props.ln]} </td>
+                                        key={i + 1}>{new Date(el2.date).getDate() + " " + lib[new Date(el2.date).getMonth()][props.ln]} </td>
                                     <td className="p-5 text-center align-middle" key={i + 2}>{el2[props.ln].title}</td>
                                     <td className="p-5 text-center align-middle"
                                         key={i + 3}>{el2[props.ln].description}</td>
-                                </tr>
+                                    {props.tp === "rdx" ? <></> :
+                                        <td className="p-5 text-center align-middle" key={i * 8}>
+                                            <input type="checkbox"
+                                                   className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
+                                                   onChange={(event) => event.target.checked ? dispatch(updateFavorite([el[0], el2])) : dispatch(deleteFavorite([el[0], el2]))}/>
+                                        </td>
+                                    }
+                                </tr> : <></>
                             })
                         }
-                    </Fragment>
+                    </Fragment> : <></>
                 )}
                 </tbody>
             </table>
