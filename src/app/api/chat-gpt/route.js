@@ -3,6 +3,10 @@ import data from "./data.json";
 
 export async function POST(request) {
     const body = await request.json();
+    // const cookiesAll = body.cook;
+    // console.log(cookiesAll)
+   //  console.log(cookiesAll.slice(cookiesAll.lastIndexOf("favorite=") + 2, cookiesAll.lastIndexOf("?")))
+
     // const endOfYear = [4, 4, 5, 4, 4]; // Available amount of iterations for create random years
     // const sortByYear = data.map(el => { // By loop, create in every news object new property "year", with random year
     //     const rndm = Math.floor(Math.random() * 5);
@@ -46,6 +50,7 @@ export async function POST(request) {
 
     const readyNews = data.map((el, i) => new Object({
         id: i + 1,
+        checked: false,
         en: {title: el.en.title, description: el.en.description},
         ru: {title: el.ru.title, description: el.ru.description},
         date: isNaN(el.en.date[2]) ? new Date(el.en.date.split("." || "-").reverse().join("." || "-")) : new Date(el.en.date), // Доп проверка, пока только двух варицациий, д.м.г или г.м.д

@@ -11,6 +11,7 @@ export default function SortTableNews(props) {
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
     const [animatTime, setAnimatTime] = useState(false);
+    const [checkedList, setCheckedList] = useState(currentFav.user ? currentFav.user.slice(currentFav.user.lastIndexOf("=") + 1, currentFav.user.lastIndexOf("?")) : "")
     const pointerArrow = {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
@@ -66,6 +67,7 @@ export default function SortTableNews(props) {
         },
     ]
     const dispatch = useAppDispatch();
+    const [cookieFavSet, setCookieFavSet] = useState([]);
     const caller = async () => {
         try {
             const take = props.tp === "ssr" ? await fetching(null, null, state ? "up" : "down") : state ?
@@ -116,8 +118,7 @@ export default function SortTableNews(props) {
                     </th>
                     <th className="p-5" key={32423}>{props.ln === "ru" ? "Событие" : "Event"}</th>
                     <th className="p-5" key={3322}>{props.ln === "ru" ? "Описание" : "Description"}</th>
-                    {props.tp === "rdx" ? <></> :
-                        <th className="p-5" key={3326}>{props.ln === "ru" ? "Добавить" : "Add"}</th>}
+                    <th className="p-5" key={3326}>{props.ln === "ru" ? "Добавить" : "Add"}</th>
 
                 </tr>
                 </thead>
@@ -136,13 +137,30 @@ export default function SortTableNews(props) {
                                         <td className="p-5 text-center align-middle" key={i + 2}>{el2[props.ln].title}</td>
                                         <td className="p-5 text-center align-middle"
                                             key={i + 3}>{el2[props.ln].description}</td>
-                                        {props.tp === "rdx" ? <></> :
-                                            <td className="p-5 text-center align-middle" key={i * 8}>
-                                                <input type="checkbox"
-                                                       className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
-                                                       onChange={(event) => event.target.checked ? dispatch(updateFavorite([el[0], el2])) : dispatch(deleteFavorite([el[0], el2]))}/>
-                                            </td>
-                                        }
+                                        <td className="p-5 text-center align-middle" key={i * 8}>
+                                            <input type="checkbox"
+                                                   className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
+                                                   checked={checkedList.includes(el2.id) ? true : el2.checked}
+                                                   onClick={() => setNews([...news.filter(el5 => el5[0] !== el[0]), [el[0], [...el[1].filter(el6 => el6.id !== el2.id), {
+                                                       ...el2,
+                                                       checked: !el2.checked
+                                                   }].sort((c, d) => c.id - d.id)]].sort((a, b) => b[0] - a[0]))}
+                                                   onChange={(event) => {
+                                                       if (event.target.checked) {
+                                                           setCookieFavSet([...cookieFavSet, el2.id])
+                                                           document.cookie = currentFav.user.replace(/favorite=/, `favorite=${[...cookieFavSet, el2.id].join(",") + (!cookieFavSet.length ? "," : "")}`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           // const cookieFav = currentFav.user.slice(currentFav.user.indexOf("[") + 1, currentFav.user.indexOf("]")).split(",");
+                                                           // document.cookie = currentFav.user.slice(0, currentFav.user.indexOf("[")) + (cookieFav[0] === undefined ? `[${el2.id}]` : `[${[...cookieFav, el2.id].sort().join(",")}]`) + currentFav.user.slice(currentFav.user.lastIndexOf("?")) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           //checkedList.includes(el2.id)
+                                                           dispatch(updateFavorite([el[0], el2]));
+                                                       } else {
+                                                           const deleteId = checkedList.split(",").filter(el7 => el7 !== el2.id + "").join(",");
+                                                           setCheckedList(deleteId);
+                                                           document.cookie = currentFav.user.replace(/favorite=/, `favorite=${deleteId}`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           dispatch(deleteFavorite([el[0], el2]));
+                                                       }
+                                                   }}/>
+                                        </td>
                                     </tr> : <></>
                             })
                         }
