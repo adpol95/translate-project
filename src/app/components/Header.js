@@ -1,12 +1,9 @@
 import Link from "next/link";
 import PopUpMenu from "@/app/components/PopUpMenu";
 import SignIn from "@/app/components/SignIn";
-import {cookies} from "next/headers";
 
 export default function Header(props) {
     const rndm = () => Math.random() * 10 + 1;
-    const cookieStore = cookies();
-    const haveCookie = cookieStore.get("auth");
     const data = [
         {
             id: rndm(),
@@ -40,7 +37,7 @@ export default function Header(props) {
                             {el.text[props.ln.slice()]}
                         </Link>
                     </li>)}
-                    <SignIn ln={props.ln} cookieAuth={haveCookie}/>
+                    <SignIn ln={props.ln}/>
                     <PopUpMenu ln={props.ln}/>
                 </ul>
             </nav>

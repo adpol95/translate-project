@@ -3,8 +3,10 @@ import Link from "next/link";
 import {useState} from "react";
 import CookieSetBtn from "@/app/components/CookieSetBtn";
 import DelBtn from "@/app/components/DelBtn";
+import {useAppSelector} from "@/app/lib/hooks";
 
 export default function SignIn(props) {
+    const currentFav = useAppSelector(state => state.favorite.currentFavorite.user);
     const [formState, setFormState] = useState({
         name: "",
         password: "",
@@ -45,16 +47,20 @@ export default function SignIn(props) {
     return (
         <div className="group flex flex-col relative">
             <button onClick={popUpMenu} className={hoverTextYellow}>
-                <Link href={props.cookieAuth ? `${process.env.url}${props.ln}/authorization` : ""}>
+                <Link href={currentFav ? `${process.env.url}${props.ln}/authorization` : ""}>
                     {locTitles.prfl[props.ln]}
                 </Link>
             </button>
-            {props.cookieAuth ?
+            {currentFav ?
                 <DelBtn ln={props.ln}
                         an={authMenu}
-                        hy={hoverTextYellow}/>
+                        hy={hoverTextYellow}
+                        user={currentFav}
+                />
                 :
-                <div id="outer" className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-450 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac cursor-pointer`} onClick={(event) => event.target.id === "outer" ? popUpMenu(event) : ""}>
+                <div id="outer"
+                     className={`${authMenu ? "opacity-100" : "opacity-0 pointer-events-none"} fixed flex justify-center items-center transition-opacity duration-450 ease-out left-0 right-0 top-0 bottom-0 bg-gray-opac cursor-pointer`}
+                     onClick={(event) => event.target.id === "outer" ? popUpMenu(event) : ""}>
                     <form className={styleForm}>
                         <label
                             className="font-bold text-center pb-5 text-[3vw]">{registnBtn ? locTitles.reg[props.ln] : locTitles.auth[props.ln]}</label>
@@ -90,8 +96,9 @@ export default function SignIn(props) {
                                       auth={authMenu}
                                       hy={hoverTextYellow}
                         />
-                        <button className={`${hoverTextYellow} absolute right-[1.5vw] top-1.5 text-[1.7em] cursor-pointer`}
-                                onClick={popUpMenu}>&#10006;
+                        <button
+                            className={`${hoverTextYellow} absolute right-[1.5vw] top-1.5 text-[1.7em] cursor-pointer`}
+                            onClick={popUpMenu}>&#10006;
                         </button>
                     </form>
                 </div>

@@ -1,9 +1,16 @@
 "use client";
 import {useAppSelector} from "@/app/lib/hooks";
 import SortTableNews from "@/app/components/SortTableNews";
+import {useRouter} from "next/navigation";
 
 export default function Authorization({params}) {
+    const router = useRouter();
+    const currentFav = useAppSelector(state => state.favorite.currentFavorite);
+    if (!currentFav.user) {
+        router.push(`/`);
+        return <></>
+    }
     return (
-        <SortTableNews ln={params.locale} nw={useAppSelector(state => Object.entries(state.favorite.currentFavorite))} tp={"rdx"}/>
+        <SortTableNews ln={params.locale} tp={"rdx"}/>
     );
 }

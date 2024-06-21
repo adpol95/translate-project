@@ -1,15 +1,17 @@
 "use client";
 import {Fragment, useState} from "react";
 import fetching from "@/app/fetch";
-import {useAppDispatch} from "@/app/lib/hooks";
+import {useAppDispatch, useAppSelector} from "@/app/lib/hooks";
 import {deleteFavorite, updateFavorite} from "@/app/lib/features/favoriteSlice";
 
 export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
-    const [news, setNews] = useState(props.nw);
+    const currentFav = useAppSelector(state => state.favorite.currentFavorite);
+    const [news, setNews] = useState(props.tp === "ssr" ? props.nw : Object.entries(currentFav.fav));
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
     const [animatTime, setAnimatTime] = useState(false);
+    console.log(news)
     const pointerArrow = {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
@@ -125,19 +127,19 @@ export default function SortTableNews(props) {
                             el[1].map((el2, i2) => {
                                 return i2 === el[1].lastIndexOf(el2) ?
                                     <tr className={`${borderStyle}`} key={i2 * 6226}>
-                                    <td className="p-2 text-center align-middle"
-                                        key={i + 1}>{new Date(el2.date).getDate() + " " + lib[new Date(el2.date).getMonth()][props.ln]} </td>
-                                    <td className="p-5 text-center align-middle" key={i + 2}>{el2[props.ln].title}</td>
-                                    <td className="p-5 text-center align-middle"
-                                        key={i + 3}>{el2[props.ln].description}</td>
-                                    {props.tp === "rdx" ? <></> :
-                                        <td className="p-5 text-center align-middle" key={i * 8}>
-                                            <input type="checkbox"
-                                                   className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
-                                                   onChange={(event) => event.target.checked ? dispatch(updateFavorite([el[0], el2])) : dispatch(deleteFavorite([el[0], el2]))}/>
-                                        </td>
-                                    }
-                                </tr> : <></>
+                                        <td className="p-2 text-center align-middle"
+                                            key={i + 1}>{new Date(el2.date).getDate() + " " + lib[new Date(el2.date).getMonth()][props.ln]} </td>
+                                        <td className="p-5 text-center align-middle" key={i + 2}>{el2[props.ln].title}</td>
+                                        <td className="p-5 text-center align-middle"
+                                            key={i + 3}>{el2[props.ln].description}</td>
+                                        {props.tp === "rdx" ? <></> :
+                                            <td className="p-5 text-center align-middle" key={i * 8}>
+                                                <input type="checkbox"
+                                                       className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
+                                                       onChange={(event) => event.target.checked ? dispatch(updateFavorite([el[0], el2])) : dispatch(deleteFavorite([el[0], el2]))}/>
+                                            </td>
+                                        }
+                                    </tr> : <></>
                             })
                         }
                     </Fragment> : <></>
