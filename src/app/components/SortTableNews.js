@@ -11,7 +11,6 @@ export default function SortTableNews(props) {
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
     const [animatTime, setAnimatTime] = useState(false);
-    console.log(news)
     const pointerArrow = {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
@@ -90,7 +89,12 @@ export default function SortTableNews(props) {
     }
     return (
         <section className="flex flex-col items-center justify-between p-[10vh]">
-            <h1 className="text-[7vh] font-bold pb-[10vh]">{props.ln === "ru" ? "События" : "Events"}</h1>
+            {props.tp === "ssr" ?
+                <h1 className="text-[7vh] font-bold pb-[10vh]">{props.ln === "ru" ? "События" : "Events"}</h1>
+                :
+                <h1 className="text-[7vh] font-bold pb-[10vh]">{props.ln === "ru" ? "Избранные" : "Favorite"}</h1>
+            }
+
             <table className={`table-auto ${borderStyle} z:text-[1.5vw] xl:text-[.8vw] overflow-x-auto`}>
                 <thead className={borderStyle}>
                 <tr className={`${borderStyle} bg-gray-light font-bold`}>

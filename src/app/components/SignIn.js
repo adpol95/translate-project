@@ -45,7 +45,7 @@ export default function SignIn(props) {
 
 
     return (
-        <div className="group flex flex-col relative">
+        <div className="group flex flex-col relative py-[2em]">
             <button onClick={popUpMenu} className={hoverTextYellow}>
                 <Link href={currentFav ? `${process.env.url}${props.ln}/authorization` : ""}>
                     {locTitles.prfl[props.ln]}

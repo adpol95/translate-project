@@ -11,6 +11,8 @@ export default function Authorization({params}) {
         return <></>
     }
     return (
+        <main className="pt-[20vh] pb-[18vh] w-full">
         <SortTableNews ln={params.locale} tp={"rdx"}/>
+        </main>
     );
 }
