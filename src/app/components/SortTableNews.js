@@ -1,5 +1,5 @@
 "use client";
-import {Fragment, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import fetching from "@/app/fetch";
 import {useAppDispatch, useAppSelector} from "@/app/lib/hooks";
 import {deleteFavorite, updateFavorite} from "@/app/lib/features/favoriteSlice";
@@ -7,11 +7,18 @@ import {deleteFavorite, updateFavorite} from "@/app/lib/features/favoriteSlice";
 export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
     const currentFav = useAppSelector(state => state.favorite.currentFavorite);
-    const [news, setNews] = useState(props.tp === "ssr" ? props.nw : Object.entries(currentFav.fav));
+    const [news, setNews] = useState([]);
+    const [checkedList, setCheckedList] = useState(currentFav.user ? currentFav.checkedL.split(currentFav.checkedL ? "," : "").filter(ee => ee) : "");
+    useEffect(() => {
+        (async () => {
+            const first = await currentFav.news;
+            setNews(props.tp === "ssr" ? first : first.map(e => [e[0], e[1].filter(el1 => checkedList.includes(el1.id + ""))]));
+        })()
+    }, []);
+    const [cookieFavSet, setCookieFavSet] = useState([]);
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
     const [animatTime, setAnimatTime] = useState(false);
-    const [checkedList, setCheckedList] = useState(currentFav.user ? currentFav.user.slice(currentFav.user.lastIndexOf("=") + 1, currentFav.user.lastIndexOf("?")) : "")
     const pointerArrow = {
         en: !state ? "New-Old" : "Old-New",
         ru: !state ? "По возрастанию" : "По убыванию",
@@ -67,7 +74,6 @@ export default function SortTableNews(props) {
         },
     ]
     const dispatch = useAppDispatch();
-    const [cookieFavSet, setCookieFavSet] = useState([]);
     const caller = async () => {
         try {
             const take = props.tp === "ssr" ? await fetching(null, null, state ? "up" : "down") : state ?
@@ -130,6 +136,7 @@ export default function SortTableNews(props) {
                         </tr>
                         {
                             el[1].map((el2, i2) => {
+
                                 return i2 === el[1].lastIndexOf(el2) ?
                                     <tr className={`${borderStyle}`} key={i2 * 6226}>
                                         <td className="p-2 text-center align-middle"
@@ -140,26 +147,36 @@ export default function SortTableNews(props) {
                                         <td className="p-5 text-center align-middle" key={i * 8}>
                                             <input type="checkbox"
                                                    className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
-                                                   checked={checkedList.includes(el2.id) ? true : el2.checked}
-                                                   onClick={() => setNews([...news.filter(el5 => el5[0] !== el[0]), [el[0], [...el[1].filter(el6 => el6.id !== el2.id), {
-                                                       ...el2,
-                                                       checked: !el2.checked
-                                                   }].sort((c, d) => c.id - d.id)]].sort((a, b) => b[0] - a[0]))}
+                                                   onClick={(event) => {
+                                                       setNews([...news.filter(el5 => el5[0] !== el[0]), [el[0], [...el[1].filter(el6 => el6.id !== el2.id), {
+                                                           ...el2,
+                                                           checked: event.target.checked
+                                                       }].sort((c, d) => c.id - d.id)]].sort((a, b) => b[0] - a[0]))
+                                                   }}
+                                                   checked={checkedList.includes(el2.id + "") ? true : el2.checked}
+                                                // onClick={(event) => {
+                                                //     setNews([...news, [el[0], [...el[1], {
+                                                //         ...el2,
+                                                //         checked: !event.target.checked,
+                                                //     }]]]);
+                                                //     console.log(news[i][1][i2].checked)
+                                                // }}
                                                    onChange={(event) => {
                                                        if (event.target.checked) {
                                                            setCookieFavSet([...cookieFavSet, el2.id])
-                                                           document.cookie = currentFav.user.replace(/favorite=/, `favorite=${[...cookieFavSet, el2.id].join(",") + (!cookieFavSet.length ? "," : "")}`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           document.cookie = currentFav.user.replace(/favorite=.*\?/, `favorite=${checkedList.length ? checkedList.join(",") + "," : ""}${[...cookieFavSet, el2.id].join(",") + (checkedList.length ? "," : "")}?`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
                                                            // const cookieFav = currentFav.user.slice(currentFav.user.indexOf("[") + 1, currentFav.user.indexOf("]")).split(",");
                                                            // document.cookie = currentFav.user.slice(0, currentFav.user.indexOf("[")) + (cookieFav[0] === undefined ? `[${el2.id}]` : `[${[...cookieFav, el2.id].sort().join(",")}]`) + currentFav.user.slice(currentFav.user.lastIndexOf("?")) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
                                                            //checkedList.includes(el2.id)
                                                            dispatch(updateFavorite([el[0], el2]));
                                                        } else {
-                                                           const deleteId = checkedList.split(",").filter(el7 => el7 !== el2.id + "").join(",");
-                                                           setCheckedList(deleteId);
-                                                           document.cookie = currentFav.user.replace(/favorite=/, `favorite=${deleteId}`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
-                                                           dispatch(deleteFavorite([el[0], el2]));
+                                                           const deleteId = cookieFavSet.concat(checkedList).filter(el7 => el7 !== el2.id + "").join(",");
+                                                           setCheckedList(deleteId.split(deleteId.length > 1 ? "," : ""));
+                                                           document.cookie = currentFav.user.replace(/favorite=.*\?/, `favorite=${deleteId}` + "?") + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           dispatch(deleteFavorite([el[0], el2, deleteId]));
                                                        }
-                                                   }}/>
+                                                   }}
+                                            />
                                         </td>
                                     </tr> : <></>
                             })

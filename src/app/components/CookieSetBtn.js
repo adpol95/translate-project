@@ -1,11 +1,7 @@
-import {useRouter} from "next/navigation";
-
 export default function CookieSetBtn(props) {
     const user = document.cookie.split(";").find(el => el.includes(props.name));
-    const router = useRouter();
     return (
-        <button onClick={(event) => {
-            event.preventDefault();
+        <button onClick={() => {
             const alrtPrvDef = (text) => {
                 alert(text);
             }
@@ -15,8 +11,6 @@ export default function CookieSetBtn(props) {
             else if (!props.regState && user.slice(user.lastIndexOf("?") + 1) !== props.ps) alrtPrvDef(props.ln === "en" ? "Password incorrect, type correct password" : "Не верный пароль, введите корректный")
             else {
                 document.cookie = (props.regState ? "auth?" + props.name + "=status=OK" + "?favorite=" + "?" + props.ps : user.replace(/NOT/, "OK")) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
-                router.push(`/authorization`);
-                window.location.reload();
             }
         }} className={`${props.hy} mt-[1em]`}>
             {props.ln === "en" ? "Sign in" : "Войти"}

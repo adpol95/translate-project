@@ -1,21 +1,21 @@
-import { NextResponse } from "next/server";
+import {NextResponse} from "next/server";
 
-import { i18n } from "../i18n-config";
+import {i18n} from "../i18n-config";
 
-import { match as matchLocale } from "@formatjs/intl-localematcher";
+import {match as matchLocale} from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import {cookies} from "next/headers";
 
-function getLocale(request){
+function getLocale(request) {
     // Negotiator expects plain object so we need to transform headers
-    const negotiatorHeaders  = {};
+    const negotiatorHeaders = {};
     request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
     // @ts-ignore locales are readonly
     const locales = i18n.locales;
 
     // Use negotiator and intl-localematcher to get best locale
-    let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
+    let languages = new Negotiator({headers: negotiatorHeaders}).languages(
         locales,
     );
     console.log(negotiatorHeaders['accept-language']);
@@ -24,6 +24,14 @@ function getLocale(request){
 
 export function middleware(request) {
     const pathname = request.nextUrl.pathname;
+    if (pathname.endsWith("authorization")) {
+        const cookieStore = cookies();
+        if (!cookieStore.getAll().some(el => el.value.includes("OK"))) return NextResponse.redirect(
+            new URL(`${process.env.url}`,
+                request.url,
+            ),
+        );
+    }
     // // /_next/ and /api/ are ignored by the watcher, but we need to ignore files in public manually.
     // // If you have one
     // if (
@@ -50,7 +58,7 @@ export function middleware(request) {
         // The new URL is now /en-US/products
         return NextResponse.redirect(
             new URL(haveCookie ? `${haveCookie.value}` :
-                `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+                    `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
                 request.url,
             ),
         );

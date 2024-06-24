@@ -11,7 +11,7 @@ export default async function Events({params}) {
 
     return (
         <main className="pt-[20vh] pb-[18vh] w-full">
-            <SortTableNews ln={local} nw={news} tp={"ssr"}/>
+            <SortTableNews ln={local} tp={"ssr"}/>
         </main>
     )
 }
