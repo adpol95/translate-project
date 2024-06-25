@@ -41,6 +41,6 @@ export default function useFetch(url, name, setOn) {
                 setLoading(false);
             }
         })();
-    }, [url, name]);
+    }, [url, name, setOn]);
     return {data, isLoading, error};
 }
