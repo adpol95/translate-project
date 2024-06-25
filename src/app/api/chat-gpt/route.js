@@ -5,7 +5,7 @@ export async function POST(request) {
     const body = await request.json();
     // const cookiesAll = body.cook;
     // console.log(cookiesAll)
-   //  console.log(cookiesAll.slice(cookiesAll.lastIndexOf("favorite=") + 2, cookiesAll.lastIndexOf("?")))
+    //  console.log(cookiesAll.slice(cookiesAll.lastIndexOf("favorite=") + 2, cookiesAll.lastIndexOf("?")))
 
     // const endOfYear = [4, 4, 5, 4, 4]; // Available amount of iterations for create random years
     // const sortByYear = data.map(el => { // By loop, create in every news object new property "year", with random year
