@@ -16,6 +16,8 @@ export default function SortTableNews(props) {
         })()
     }, []);
     const [cookieFavSet, setCookieFavSet] = useState([]);
+
+
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
     const [animatTime, setAnimatTime] = useState(false);
@@ -73,13 +75,12 @@ export default function SortTableNews(props) {
             en: "December"
         },
     ]
+
+
     const dispatch = useAppDispatch();
     const caller = async () => {
         try {
-            const take = props.tp === "ssr" ? await fetching(null, null, state ? "up" : "down") : state ?
-                news.sort((a, b) => b[0] - a[0])
-                :
-                news.sort((a, b) => a[0] - b[0]);
+            const take = await fetching(null, null, state ? "up" : "down");
             setAnimatTime(true);
             setTimeout(() => {
                 setState(!state);
