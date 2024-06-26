@@ -1,9 +1,12 @@
 import {useEffect, useState} from "react";
+import {useAppDispatch} from "@/app/lib/hooks";
+import {toggleCookie} from "@/app/lib/features/cookieSlice";
 
 export default function useFetch(url, name, setOn) {
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const dispatch = useAppDispatch();
     useEffect(() => {
         (async () => {
             if (name === "get") {
@@ -34,6 +37,7 @@ export default function useFetch(url, name, setOn) {
                     throw new Error('Network response was not ok');
                 }
                 const jsonData = await response.json();
+                dispatch(toggleCookie(jsonData));
                 setData(jsonData);
             } catch (error) {
                 setError(error);
