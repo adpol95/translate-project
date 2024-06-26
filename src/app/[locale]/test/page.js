@@ -10,9 +10,11 @@ export default function CustomHook() {
     const [input, setInput] = useState("");
     const [inputSet, setInputSet] = useState("");
     const [setOn, setSetOn] = useState(false)
+
     const apiUrl = `${process.env.url}api/auth`;
     const cookieToolKit = useSelector((state) => state.cookie.currentCookie);
     const dispatch = useAppDispatch();
+
     const {data, isLoading, error} = useFetch(apiUrl, name, setOn);
     if (isLoading) {
         return <p className="mt-[5em]">Loading...</p>;
@@ -20,6 +22,8 @@ export default function CustomHook() {
     if (error) {
         return <p className="mt-[5em]">Error: {error.message}</p>;
     }
+
+
     return (
         <div className="mt-[5em]">
             <h1>{data}</h1>

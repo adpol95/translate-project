@@ -1,23 +1,17 @@
 "use client";
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useState} from "react";
 import fetching from "@/app/fetch";
 import {useAppDispatch, useAppSelector} from "@/app/lib/hooks";
 import {deleteFavorite, updateFavorite} from "@/app/lib/features/favoriteSlice";
+import useFetch from "@/app/hooks/useCookieFetch";
 
 export default function SortTableNews(props) {
     const borderStyle = "border-2 border-solid border-gray rounded-xl ";
     const currentFav = useAppSelector(state => state.favorite.currentFavorite);
     const [news, setNews] = useState([]);
-    const [checkedList, setCheckedList] = useState(currentFav.user ? currentFav.checkedL.split(currentFav.checkedL ? "," : "").filter(ee => ee) : "");
-    useEffect(() => {
-        (async () => {
-            const first = await currentFav.news;
-            setNews(props.tp === "ssr" ? first : first.map(e => [e[0], e[1].filter(el1 => checkedList.includes(el1.id + ""))]));
-        })()
-    }, []);
     const [cookieFavSet, setCookieFavSet] = useState([]);
-
-
+    const [preventRerender, setPreventRerender] = useState(false)
+    const [checkedList, setCheckedList] = useState([]);
     const [state, setState] = useState(true);
     const [btnState, setBtnState] = useState(false);
     const [animatTime, setAnimatTime] = useState(false);
@@ -76,18 +70,27 @@ export default function SortTableNews(props) {
         },
     ]
 
-
+    const [stateUser, setStateUser] = useState({
+        change: false,
+        value: null
+    });
+    const {error} = useFetch(`${process.env.url}/api/auth`, currentFav.user ? currentFav.user.name.slice(5) : "", stateUser.change, stateUser.value, true);
+    if (error) {
+        //return <p className="mt-[5em]">Error: {error.message}</p>;
+        console.log(error.message)
+    }
     const dispatch = useAppDispatch();
     const caller = async () => {
         try {
             const take = await fetching(null, null, state ? "up" : "down");
             setAnimatTime(true);
+            const profileEvents = take.map(e => [e[0], e[1].filter(el1 => checkedList.includes(el1.id + ""))]);
             setTimeout(() => {
                 setState(!state);
-                setNews(take);
+                setNews(props.tp === "ssr" ? take : profileEvents);
                 setBtnState(false);
                 setAnimatTime(false);
-            }, 550)
+            }, 200)
 
         } catch (err) {
             console.log(err)
@@ -95,6 +98,17 @@ export default function SortTableNews(props) {
             setBtnState(false);
             setAnimatTime(false);
         }
+    }
+
+    if (currentFav.news.length && !preventRerender) {
+        setPreventRerender(true);
+        const list = currentFav.checkedL.split(currentFav.checkedL ? "," : "").filter(ee => ee);
+        const mainEvents = currentFav.news;
+        const profileEvents = currentFav.news.map(e => [e[0], e[1].filter(el1 => list.includes(el1.id + ""))]);
+        setTimeout(() => {
+            setNews(props.tp === "ssr" ? mainEvents : profileEvents);
+            setCheckedList(list)
+        }, 100)
     }
     return (
         <section className="flex flex-col items-center justify-between p-[10vh]">
@@ -148,7 +162,9 @@ export default function SortTableNews(props) {
                                         <td className="p-5 text-center align-middle" key={i * 8}>
                                             <input type="checkbox"
                                                    className="accent-orange w-[1.5em] h-[1.5em] white cursor-pointer"
+                                                   disabled={!currentFav.user}
                                                    onClick={(event) => {
+                                                       event.preventDefault()
                                                        setNews([...news.filter(el5 => el5[0] !== el[0]), [el[0], [...el[1].filter(el6 => el6.id !== el2.id), {
                                                            ...el2,
                                                            checked: event.target.checked
@@ -164,8 +180,18 @@ export default function SortTableNews(props) {
                                                 // }}
                                                    onChange={(event) => {
                                                        if (event.target.checked) {
-                                                           setCookieFavSet([...cookieFavSet, el2.id])
-                                                           document.cookie = currentFav.user.replace(/favorite=.*\?/, `favorite=${checkedList.length ? checkedList.join(",") + "," : ""}${[...cookieFavSet, el2.id].join(",") + (checkedList.length ? "," : "")}?`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           // setCookieFavSet([...cookieFavSet, el2.id])
+                                                           // document.cookie = currentFav.user.replace(/favorite=.*\?/, `favorite=${checkedList.length ? checkedList.join(",") + "," : ""}${[...cookieFavSet, el2.id].join(",") + (checkedList.length ? "," : "")}?`) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           // // const cookieFav = currentFav.user.slice(currentFav.user.indexOf("[") + 1, currentFav.user.indexOf("]")).split(",");
+                                                           // // document.cookie = currentFav.user.slice(0, currentFav.user.indexOf("[")) + (cookieFav[0] === undefined ? `[${el2.id}]` : `[${[...cookieFav, el2.id].sort().join(",")}]`) + currentFav.user.slice(currentFav.user.lastIndexOf("?")) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           // //checkedList.includes(el2.id)
+                                                           // dispatch(updateFavorite([el[0], el2]));
+
+                                                           setCookieFavSet([...cookieFavSet, el2.id]);
+                                                           setStateUser({
+                                                               change: true,
+                                                               value: currentFav.user.value.replace(/favorite=.*\|/, `favorite=${checkedList.length ? checkedList.join(",") + "," : ""}${[...cookieFavSet, el2.id].join(",") + (checkedList.length ? "," : "")}|`)
+                                                           })
                                                            // const cookieFav = currentFav.user.slice(currentFav.user.indexOf("[") + 1, currentFav.user.indexOf("]")).split(",");
                                                            // document.cookie = currentFav.user.slice(0, currentFav.user.indexOf("[")) + (cookieFav[0] === undefined ? `[${el2.id}]` : `[${[...cookieFav, el2.id].sort().join(",")}]`) + currentFav.user.slice(currentFav.user.lastIndexOf("?")) + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
                                                            //checkedList.includes(el2.id)
@@ -173,7 +199,10 @@ export default function SortTableNews(props) {
                                                        } else {
                                                            const deleteId = cookieFavSet.concat(checkedList).filter(el7 => el7 !== el2.id + "").join(",");
                                                            setCheckedList(deleteId.split(deleteId.length > 1 ? "," : ""));
-                                                           document.cookie = currentFav.user.replace(/favorite=.*\?/, `favorite=${deleteId}` + "?") + ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                                                           setStateUser({
+                                                               change: true,
+                                                               value: currentFav.user.value.replace(/favorite=.*\|/, `favorite=${deleteId}|`)
+                                                           })
                                                            dispatch(deleteFavorite([el[0], el2, deleteId]));
                                                        }
                                                    }}

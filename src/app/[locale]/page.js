@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ThemeToggle from "@/app/components/ThemeToggle";
 
 export const metadata = {
     title: "Home page",
@@ -14,7 +13,6 @@ export default async function Home({params}) {
                         {params.locale === "ru" ? "Новости" : "News"}
                     </h1>
                 </Link>
-                <ThemeToggle/>
             </section>
         </main>
     )

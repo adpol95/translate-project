@@ -10,11 +10,11 @@ export async function GET() {
 export async function POST(request) {
     const body = await request.json();
     const cookieStore = cookies();
-    const haveCookie = cookieStore.get(body.name);
+    const haveCookie = cookieStore.get("auth|" + body.name);
 
-    if (body.setOn) {
-        cookies().set('auth|Jon', body.name);
-        return NextResponse.json(JSON.stringify(cookieStore.get("auth|Jon")));
+    if (body.chngUsr) {
+        cookies().set("auth|" + body.name, body.value);
+        return NextResponse.json(JSON.stringify({name: "auth|" + body.name, value: body.value, path: "/"}))
     }
     return NextResponse.json(JSON.stringify(haveCookie ? haveCookie : "Not having this user"));
 }
